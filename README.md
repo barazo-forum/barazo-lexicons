@@ -14,6 +14,9 @@
 [![npm](https://img.shields.io/badge/npm-%40atgora--forum%2Flexicons-blue)](https://github.com/atgora-forum/atgora-lexicons/packages)
 
 </div>
+[![npm](https://img.shields.io/badge/npm-%40atgora--forum%2Flexicons-blue)](https://github.com/atgora-forum/atgora-lexicons/packages)
+
+</div>
 
 ---
 
