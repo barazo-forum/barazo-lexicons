@@ -1,0 +1,63 @@
+{
+  "lexicon": 1,
+  "id": "forum.atgora.actor.preferences",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "User-level moderation and safety preferences. Portable across AppViews.",
+      "key": "literal:self",
+      "record": {
+        "type": "object",
+        "required": ["maturityLevel", "updatedAt"],
+        "properties": {
+          "maturityLevel": {
+            "type": "string",
+            "enum": ["safe", "mature", "all"],
+            "description": "Maximum maturity tier to show. Default: 'safe'."
+          },
+          "mutedWords": {
+            "type": "array",
+            "maxLength": 100,
+            "items": { "type": "string", "maxLength": 1000, "maxGraphemes": 100 },
+            "description": "Global muted words (apply to all communities)."
+          },
+          "blockedDids": {
+            "type": "array",
+            "maxLength": 1000,
+            "items": { "type": "string", "format": "did" },
+            "description": "Blocked accounts (content hidden everywhere)."
+          },
+          "mutedDids": {
+            "type": "array",
+            "maxLength": 1000,
+            "items": { "type": "string", "format": "did" },
+            "description": "Muted accounts (content de-emphasized, collapsed but visible)."
+          },
+          "crossPostDefaults": {
+            "type": "ref",
+            "ref": "#crossPostConfig",
+            "description": "Per-service toggle for cross-posting new topics."
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "Client-declared timestamp when preferences were last updated."
+          }
+        }
+      }
+    },
+    "crossPostConfig": {
+      "type": "object",
+      "properties": {
+        "bluesky": {
+          "type": "boolean",
+          "description": "Cross-post new topics to Bluesky. Default: false."
+        },
+        "frontpage": {
+          "type": "boolean",
+          "description": "Cross-post new topics to Frontpage. Default: false."
+        }
+      }
+    }
+  }
+}

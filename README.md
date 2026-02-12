@@ -1,147 +1,89 @@
-<div align="center">
+# @atgora-forum/lexicons
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/atgora-forum/.github/main/assets/logo-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/atgora-forum/.github/main/assets/logo-light.svg">
-  <img alt="ATgora Logo" src="https://raw.githubusercontent.com/atgora-forum/.github/main/assets/logo-dark.svg" width="120">
-</picture>
-
-# atgora-lexicons
-
-**AT Protocol schemas for ATgora forums**
-
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![npm](https://img.shields.io/badge/npm-%40atgora--forum%2Flexicons-blue)](https://github.com/atgora-forum/atgora-lexicons/packages)
-
-</div>
-[![npm](https://img.shields.io/badge/npm-%40atgora--forum%2Flexicons-blue)](https://github.com/atgora-forum/atgora-lexicons/packages)
-
-</div>
-
----
-
-## 🚧 Status: Pre-Alpha Development
-
-AT Protocol lexicon schemas for the ATgora forum platform.
-
-**Current phase:** Planning complete, schema design starting Q1 2026
-
----
-
-## What is this?
-
-The atgora-lexicons repo defines the **data format** for forum content on the AT Protocol. It produces:
-
-1. **Lexicon JSON schemas** - AT Protocol record definitions
-2. **TypeScript types** - Generated from schemas
-3. **Zod validation schemas** - Runtime validation
-4. **npm package** - `@atgora-forum/lexicons` used by atgora-api and atgora-web
-
-**This is the source of truth** for all `forum.atgora.*` record types.
-
----
-
-## Record Types (MVP)
-
-**Core records:**
-- `forum.atgora.topic.post` - Forum topics
-- `forum.atgora.topic.reply` - Replies to topics
-- `forum.atgora.interaction.reaction` - Reactions (likes, etc.)
-- `forum.atgora.actor.preferences` - User moderation preferences (stored on user's PDS)
-
-**Archive records (Phase 5):**
-- `forum.atgora.archivedPost` - Migrated content from legacy forums
-
----
+AT Protocol lexicon schemas and generated TypeScript types for the ATgora forum platform. Defines the `forum.atgora.*` namespace with record types for topics, replies, reactions, and user preferences.
 
 ## Installation
 
+For npm consumers outside the workspace, configure GitHub Packages access in `.npmrc`:
+
+```
+@atgora-forum:registry=https://npm.pkg.github.com
+```
+
+Then install:
+
 ```bash
-# From GitHub Packages
-npm config set @atgora-forum:registry https://npm.pkg.github.com
 pnpm add @atgora-forum/lexicons
 ```
 
----
+For workspace consumers (`atgora-api`, `atgora-web`): already linked via pnpm workspace.
 
 ## Usage
 
-```typescript
-import { TopicPost, topicPostSchema } from '@atgora-forum/lexicons'
+### Generated Types
 
-// TypeScript type
-const post: TopicPost = {
-  $type: 'forum.atgora.topic.post',
-  title: 'Hello World',
-  content: 'This is a forum topic',
-  forum: 'did:plc:abc123',
-  category: 'general',
-  createdAt: new Date().toISOString()
+```typescript
+import { ForumAtgoraTopicPost } from "@atgora-forum/lexicons";
+
+// Type for a topic post record
+type Post = ForumAtgoraTopicPost.Record;
+
+// Type guard
+if (ForumAtgoraTopicPost.isRecord(record)) {
+  console.log(record.title);
 }
 
-// Runtime validation
-const validated = topicPostSchema.parse(post)
+// Validate against lexicon schema
+const result = ForumAtgoraTopicPost.validateRecord(record);
 ```
 
----
+### Zod Validation
+
+```typescript
+import { topicPostSchema } from "@atgora-forum/lexicons";
+
+const result = topicPostSchema.safeParse(input);
+if (result.success) {
+  // result.data is typed as TopicPostInput
+}
+```
+
+### Lexicon IDs
+
+```typescript
+import { LEXICON_IDS, ids } from "@atgora-forum/lexicons";
+
+LEXICON_IDS.TopicPost // "forum.atgora.topic.post"
+ids.ForumAtgoraTopicPost // "forum.atgora.topic.post"
+```
+
+### Raw Lexicon Schemas
+
+```typescript
+import { schemas } from "@atgora-forum/lexicons";
+// Array of LexiconDoc objects for all forum.atgora.* schemas
+```
+
+## Record Types
+
+| Lexicon ID | Description | Key Type |
+|------------|-------------|----------|
+| `forum.atgora.topic.post` | Forum topic/thread (title, content, community, category, tags, labels) | `tid` |
+| `forum.atgora.topic.reply` | Reply to a topic (content, root ref, parent ref, community) | `tid` |
+| `forum.atgora.interaction.reaction` | Reaction to content (subject ref, type, community) | `tid` |
+| `forum.atgora.actor.preferences` | User preferences singleton (maturity level, muted words, blocked DIDs, cross-post defaults) | `literal:self` |
 
 ## Development
 
-**Prerequisites:**
-- Node.js 24 LTS
-- pnpm
-
-**Setup:**
 ```bash
-git clone https://github.com/atgora-forum/atgora-lexicons.git
-cd atgora-lexicons
 pnpm install
+pnpm test          # Run tests
+pnpm build         # Compile TypeScript
+pnpm generate      # Regenerate types from lexicon JSON
+pnpm lint          # Lint
+pnpm typecheck     # Type check
 ```
-
-**Commands:**
-```bash
-pnpm test           # Validate schemas + run tests
-pnpm test:schemas   # Validate lexicon JSON files
-pnpm test:types     # Verify TypeScript generation
-pnpm build          # Generate TypeScript types
-```
-
----
-
-## Versioning
-
-**Independent semver** - Lexicons version separately from API/Web.
-
-- **MAJOR:** Breaking schema changes (rare - create new record type instead)
-- **MINOR:** Add optional fields
-- **PATCH:** Documentation, no schema changes
-
-**Breaking changes:** Create new lexicon ID (e.g., `forum.atgora.topic.postV2`)
-
-See [standards/shared.md](https://github.com/atgora-forum/atgora-forum/blob/main/standards/shared.md#versioning--release-strategy) for full versioning strategy.
-
----
 
 ## License
 
-**MIT** - Maximum adoption. We want the `forum.atgora.*` namespace to become a true open standard.
-
----
-
-## Related Repositories
-
-- **[atgora-api](https://github.com/atgora-forum/atgora-api)** - Consumes these types for validation
-- **[atgora-web](https://github.com/atgora-forum/atgora-web)** - Uses types for API responses
-- **[Organization](https://github.com/atgora-forum)** - All repos
-
----
-
-## Community
-
-- 🌐 **Website:** [atgora.forum](https://atgora.forum) (coming soon)
-- 💬 **Discussions:** [GitHub Discussions](https://github.com/orgs/atgora-forum/discussions)
-- 📖 **AT Protocol Docs:** [atproto.com](https://atproto.com/)
-
----
-
-© 2026 ATgora. Licensed under MIT.
+MIT

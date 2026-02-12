@@ -1,0 +1,49 @@
+{
+  "name": "@atgora-forum/lexicons",
+  "version": "0.1.0",
+  "description": "AT Protocol lexicon schemas and generated TypeScript types for the ATgora forum platform",
+  "type": "module",
+  "license": "MIT",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/atgora-forum/atgora-lexicons.git"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "lexicons"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src/ tests/",
+    "lint:fix": "eslint --fix src/ tests/",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "generate": "lex gen-server ./src/generated ./lexicons/**/*.json && node scripts/fixup-generated.js",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@atproto/lexicon": "^0.5.1",
+    "multiformats": "^13.4.2",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@atproto/lex-cli": "^0.9.8",
+    "@vitest/coverage-v8": "^4.0.18",
+    "eslint": "^9.28.0",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.55.0",
+    "vitest": "^4.0.18"
+  }
+}

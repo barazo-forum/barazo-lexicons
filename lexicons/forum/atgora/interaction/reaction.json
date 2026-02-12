@@ -1,0 +1,39 @@
+{
+  "lexicon": 1,
+  "id": "forum.atgora.interaction.reaction",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Record containing a reaction to a forum topic or reply.",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["subject", "type", "community", "createdAt"],
+        "properties": {
+          "subject": {
+            "type": "ref",
+            "ref": "com.atproto.repo.strongRef",
+            "description": "The topic or reply being reacted to."
+          },
+          "type": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 300,
+            "maxGraphemes": 30,
+            "description": "Reaction type (e.g., 'like', 'heart', 'thumbsup'). Must match community's configured reaction set."
+          },
+          "community": {
+            "type": "string",
+            "format": "did",
+            "description": "DID of the community where this reaction was created. Immutable origin identifier."
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "Client-declared timestamp when this reaction was originally created."
+          }
+        }
+      }
+    }
+  }
+}

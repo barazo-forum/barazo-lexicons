@@ -1,0 +1,6 @@
+{
+  "lexicon": 1,
+  "id": "forum.atgora.defs",
+  "description": "Shared type definitions for ATgora forum lexicons. Reserved for future reusable types.",
+  "defs": {}
+}

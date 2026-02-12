@@ -1,0 +1,67 @@
+{
+  "lexicon": 1,
+  "id": "forum.atgora.topic.post",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Record containing a forum topic post.",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["title", "content", "community", "category", "createdAt"],
+        "properties": {
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000,
+            "maxGraphemes": 200,
+            "description": "Topic title."
+          },
+          "content": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100000,
+            "description": "Topic body in markdown."
+          },
+          "contentFormat": {
+            "type": "string",
+            "enum": ["markdown"],
+            "description": "Content format. Defaults to 'markdown' if omitted."
+          },
+          "community": {
+            "type": "string",
+            "format": "did",
+            "description": "DID of the community where this record was created. Immutable origin identifier for cross-community attribution."
+          },
+          "category": {
+            "type": "string",
+            "maxLength": 640,
+            "maxGraphemes": 64,
+            "description": "Category rkey within the community."
+          },
+          "tags": {
+            "type": "array",
+            "maxLength": 5,
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 300,
+              "maxGraphemes": 30
+            },
+            "description": "Topic tags. Lowercase alphanumeric + hyphens."
+          },
+          "labels": {
+            "type": "union",
+            "description": "Self-label values for content maturity (e.g., sexual, nudity, graphic-media).",
+            "refs": ["com.atproto.label.defs#selfLabels"]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "Client-declared timestamp when this post was originally created."
+          }
+        }
+      }
+    }
+  }
+}

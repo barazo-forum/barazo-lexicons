@@ -1,0 +1,53 @@
+{
+  "lexicon": 1,
+  "id": "forum.atgora.topic.reply",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Record containing a reply to a forum topic or another reply.",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["content", "root", "parent", "community", "createdAt"],
+        "properties": {
+          "content": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 50000,
+            "description": "Reply body in markdown."
+          },
+          "contentFormat": {
+            "type": "string",
+            "enum": ["markdown"],
+            "description": "Content format. Defaults to 'markdown' if omitted."
+          },
+          "root": {
+            "type": "ref",
+            "ref": "com.atproto.repo.strongRef",
+            "description": "The original topic (AT URI of forum.atgora.topic.post)."
+          },
+          "parent": {
+            "type": "ref",
+            "ref": "com.atproto.repo.strongRef",
+            "description": "Direct parent (topic or reply). For top-level replies, parent == root."
+          },
+          "community": {
+            "type": "string",
+            "format": "did",
+            "description": "DID of the community where this reply was created. Immutable origin identifier."
+          },
+          "labels": {
+            "type": "union",
+            "description": "Self-label values for content maturity.",
+            "refs": ["com.atproto.label.defs#selfLabels"]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "Client-declared timestamp when this reply was originally created."
+          }
+        }
+      }
+    }
+  }
+}

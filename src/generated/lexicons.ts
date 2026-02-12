@@ -1,0 +1,506 @@
+/**
+ * GENERATED CODE - DO NOT MODIFY
+ */
+import {
+  type LexiconDoc,
+  Lexicons,
+  ValidationError,
+  type ValidationResult,
+} from '@atproto/lexicon'
+import { type $Typed, is$typed, maybe$typed } from './util.js'
+
+export const schemaDict = {
+  ComAtprotoLabelDefs: {
+    lexicon: 1,
+    id: 'com.atproto.label.defs',
+    defs: {
+      label: {
+        type: 'object',
+        description:
+          'Metadata tag on an atproto resource (eg, repo or record).',
+        required: ['src', 'uri', 'val', 'cts'],
+        properties: {
+          ver: {
+            type: 'integer',
+            description: 'The AT Protocol version of the label object.',
+          },
+          src: {
+            type: 'string',
+            format: 'did',
+            description: 'DID of the actor who created this label.',
+          },
+          uri: {
+            type: 'string',
+            format: 'uri',
+            description:
+              'AT URI of the record, repository (account), or other resource that this label applies to.',
+          },
+          cid: {
+            type: 'string',
+            format: 'cid',
+            description:
+              "Optionally, CID specifying the specific version of 'uri' resource this label applies to.",
+          },
+          val: {
+            type: 'string',
+            maxLength: 128,
+            description:
+              'The short string name of the value or type of this label.',
+          },
+          neg: {
+            type: 'boolean',
+            description:
+              'If true, this is a negation label, overwriting a previous label.',
+          },
+          cts: {
+            type: 'string',
+            format: 'datetime',
+            description: 'Timestamp when this label was created.',
+          },
+          exp: {
+            type: 'string',
+            format: 'datetime',
+            description:
+              'Timestamp at which this label expires (no longer applies).',
+          },
+          sig: {
+            type: 'bytes',
+            description: 'Signature of dag-cbor encoded label.',
+          },
+        },
+      },
+      selfLabels: {
+        type: 'object',
+        description:
+          'Metadata tags on an atproto record, published by the author within the record.',
+        required: ['values'],
+        properties: {
+          values: {
+            type: 'array',
+            items: {
+              type: 'ref',
+              ref: 'lex:com.atproto.label.defs#selfLabel',
+            },
+            maxLength: 10,
+          },
+        },
+      },
+      selfLabel: {
+        type: 'object',
+        description:
+          'Metadata tag on an atproto record, published by the author within the record. Note that schemas should use #selfLabels, not #selfLabel.',
+        required: ['val'],
+        properties: {
+          val: {
+            type: 'string',
+            maxLength: 128,
+            description:
+              'The short string name of the value or type of this label.',
+          },
+        },
+      },
+      labelValueDefinition: {
+        type: 'object',
+        description:
+          'Declares a label value and its expected interpretations and behaviors.',
+        required: ['identifier', 'severity', 'blurs', 'locales'],
+        properties: {
+          identifier: {
+            type: 'string',
+            description:
+              "The value of the label being defined. Must only include lowercase ascii and the '-' character ([a-z-]+).",
+            maxLength: 100,
+            maxGraphemes: 100,
+          },
+          severity: {
+            type: 'string',
+            description:
+              "How should a client visually convey this label? 'inform' means neutral and informational; 'alert' means negative and warning; 'none' means show nothing.",
+            knownValues: ['inform', 'alert', 'none'],
+          },
+          blurs: {
+            type: 'string',
+            description:
+              "What should this label hide in the UI, if applied? 'content' hides all of the target; 'media' hides the images/video/audio; 'none' hides nothing.",
+            knownValues: ['content', 'media', 'none'],
+          },
+          defaultSetting: {
+            type: 'string',
+            description: 'The default setting for this label.',
+            knownValues: ['ignore', 'warn', 'hide'],
+            default: 'warn',
+          },
+          adultOnly: {
+            type: 'boolean',
+            description:
+              'Does the user need to have adult content enabled in order to configure this label?',
+          },
+          locales: {
+            type: 'array',
+            items: {
+              type: 'ref',
+              ref: 'lex:com.atproto.label.defs#labelValueDefinitionStrings',
+            },
+          },
+        },
+      },
+      labelValueDefinitionStrings: {
+        type: 'object',
+        description:
+          'Strings which describe the label in the UI, localized into a specific language.',
+        required: ['lang', 'name', 'description'],
+        properties: {
+          lang: {
+            type: 'string',
+            description:
+              'The code of the language these strings are written in.',
+            format: 'language',
+          },
+          name: {
+            type: 'string',
+            description: 'A short human-readable name for the label.',
+            maxGraphemes: 64,
+            maxLength: 640,
+          },
+          description: {
+            type: 'string',
+            description:
+              'A longer description of what the label means and why it might be applied.',
+            maxGraphemes: 10000,
+            maxLength: 100000,
+          },
+        },
+      },
+      labelValue: {
+        type: 'string',
+        knownValues: [
+          '!hide',
+          '!no-promote',
+          '!warn',
+          '!no-unauthenticated',
+          'dmca-violation',
+          'doxxing',
+          'porn',
+          'sexual',
+          'nudity',
+          'nsfl',
+          'gore',
+        ],
+      },
+    },
+  },
+  ComAtprotoRepoStrongRef: {
+    lexicon: 1,
+    id: 'com.atproto.repo.strongRef',
+    description: 'A URI with a content-hash fingerprint.',
+    defs: {
+      main: {
+        type: 'object',
+        required: ['uri', 'cid'],
+        properties: {
+          uri: {
+            type: 'string',
+            format: 'at-uri',
+          },
+          cid: {
+            type: 'string',
+            format: 'cid',
+          },
+        },
+      },
+    },
+  },
+  ForumAtgoraActorPreferences: {
+    lexicon: 1,
+    id: 'forum.atgora.actor.preferences',
+    defs: {
+      main: {
+        type: 'record',
+        description:
+          'User-level moderation and safety preferences. Portable across AppViews.',
+        key: 'literal:self',
+        record: {
+          type: 'object',
+          required: ['maturityLevel', 'updatedAt'],
+          properties: {
+            maturityLevel: {
+              type: 'string',
+              enum: ['safe', 'mature', 'all'],
+              description: "Maximum maturity tier to show. Default: 'safe'.",
+            },
+            mutedWords: {
+              type: 'array',
+              maxLength: 100,
+              items: {
+                type: 'string',
+                maxLength: 1000,
+                maxGraphemes: 100,
+              },
+              description: 'Global muted words (apply to all communities).',
+            },
+            blockedDids: {
+              type: 'array',
+              maxLength: 1000,
+              items: {
+                type: 'string',
+                format: 'did',
+              },
+              description: 'Blocked accounts (content hidden everywhere).',
+            },
+            mutedDids: {
+              type: 'array',
+              maxLength: 1000,
+              items: {
+                type: 'string',
+                format: 'did',
+              },
+              description:
+                'Muted accounts (content de-emphasized, collapsed but visible).',
+            },
+            crossPostDefaults: {
+              type: 'ref',
+              ref: 'lex:forum.atgora.actor.preferences#crossPostConfig',
+              description: 'Per-service toggle for cross-posting new topics.',
+            },
+            updatedAt: {
+              type: 'string',
+              format: 'datetime',
+              description:
+                'Client-declared timestamp when preferences were last updated.',
+            },
+          },
+        },
+      },
+      crossPostConfig: {
+        type: 'object',
+        properties: {
+          bluesky: {
+            type: 'boolean',
+            description: 'Cross-post new topics to Bluesky. Default: false.',
+          },
+          frontpage: {
+            type: 'boolean',
+            description: 'Cross-post new topics to Frontpage. Default: false.',
+          },
+        },
+      },
+    },
+  },
+  ForumAtgoraDefs: {
+    lexicon: 1,
+    id: 'forum.atgora.defs',
+    description:
+      'Shared type definitions for ATgora forum lexicons. Reserved for future reusable types.',
+    defs: {},
+  },
+  ForumAtgoraInteractionReaction: {
+    lexicon: 1,
+    id: 'forum.atgora.interaction.reaction',
+    defs: {
+      main: {
+        type: 'record',
+        description: 'Record containing a reaction to a forum topic or reply.',
+        key: 'tid',
+        record: {
+          type: 'object',
+          required: ['subject', 'type', 'community', 'createdAt'],
+          properties: {
+            subject: {
+              type: 'ref',
+              ref: 'lex:com.atproto.repo.strongRef',
+              description: 'The topic or reply being reacted to.',
+            },
+            type: {
+              type: 'string',
+              minLength: 1,
+              maxLength: 300,
+              maxGraphemes: 30,
+              description:
+                "Reaction type (e.g., 'like', 'heart', 'thumbsup'). Must match community's configured reaction set.",
+            },
+            community: {
+              type: 'string',
+              format: 'did',
+              description:
+                'DID of the community where this reaction was created. Immutable origin identifier.',
+            },
+            createdAt: {
+              type: 'string',
+              format: 'datetime',
+              description:
+                'Client-declared timestamp when this reaction was originally created.',
+            },
+          },
+        },
+      },
+    },
+  },
+  ForumAtgoraTopicPost: {
+    lexicon: 1,
+    id: 'forum.atgora.topic.post',
+    defs: {
+      main: {
+        type: 'record',
+        description: 'Record containing a forum topic post.',
+        key: 'tid',
+        record: {
+          type: 'object',
+          required: ['title', 'content', 'community', 'category', 'createdAt'],
+          properties: {
+            title: {
+              type: 'string',
+              minLength: 1,
+              maxLength: 2000,
+              maxGraphemes: 200,
+              description: 'Topic title.',
+            },
+            content: {
+              type: 'string',
+              minLength: 1,
+              maxLength: 100000,
+              description: 'Topic body in markdown.',
+            },
+            contentFormat: {
+              type: 'string',
+              enum: ['markdown'],
+              description: "Content format. Defaults to 'markdown' if omitted.",
+            },
+            community: {
+              type: 'string',
+              format: 'did',
+              description:
+                'DID of the community where this record was created. Immutable origin identifier for cross-community attribution.',
+            },
+            category: {
+              type: 'string',
+              maxLength: 640,
+              maxGraphemes: 64,
+              description: 'Category rkey within the community.',
+            },
+            tags: {
+              type: 'array',
+              maxLength: 5,
+              items: {
+                type: 'string',
+                minLength: 1,
+                maxLength: 300,
+                maxGraphemes: 30,
+              },
+              description: 'Topic tags. Lowercase alphanumeric + hyphens.',
+            },
+            labels: {
+              type: 'union',
+              description:
+                'Self-label values for content maturity (e.g., sexual, nudity, graphic-media).',
+              refs: ['lex:com.atproto.label.defs#selfLabels'],
+            },
+            createdAt: {
+              type: 'string',
+              format: 'datetime',
+              description:
+                'Client-declared timestamp when this post was originally created.',
+            },
+          },
+        },
+      },
+    },
+  },
+  ForumAtgoraTopicReply: {
+    lexicon: 1,
+    id: 'forum.atgora.topic.reply',
+    defs: {
+      main: {
+        type: 'record',
+        description:
+          'Record containing a reply to a forum topic or another reply.',
+        key: 'tid',
+        record: {
+          type: 'object',
+          required: ['content', 'root', 'parent', 'community', 'createdAt'],
+          properties: {
+            content: {
+              type: 'string',
+              minLength: 1,
+              maxLength: 50000,
+              description: 'Reply body in markdown.',
+            },
+            contentFormat: {
+              type: 'string',
+              enum: ['markdown'],
+              description: "Content format. Defaults to 'markdown' if omitted.",
+            },
+            root: {
+              type: 'ref',
+              ref: 'lex:com.atproto.repo.strongRef',
+              description:
+                'The original topic (AT URI of forum.atgora.topic.post).',
+            },
+            parent: {
+              type: 'ref',
+              ref: 'lex:com.atproto.repo.strongRef',
+              description:
+                'Direct parent (topic or reply). For top-level replies, parent == root.',
+            },
+            community: {
+              type: 'string',
+              format: 'did',
+              description:
+                'DID of the community where this reply was created. Immutable origin identifier.',
+            },
+            labels: {
+              type: 'union',
+              description: 'Self-label values for content maturity.',
+              refs: ['lex:com.atproto.label.defs#selfLabels'],
+            },
+            createdAt: {
+              type: 'string',
+              format: 'datetime',
+              description:
+                'Client-declared timestamp when this reply was originally created.',
+            },
+          },
+        },
+      },
+    },
+  },
+} as const satisfies Record<string, LexiconDoc>
+export const schemas = Object.values(schemaDict) satisfies LexiconDoc[]
+export const lexicons: Lexicons = new Lexicons(schemas)
+
+export function validate<T extends { $type: string }>(
+  v: unknown,
+  id: string,
+  hash: string,
+  requiredType: true,
+): ValidationResult<T>
+export function validate<T extends { $type?: string }>(
+  v: unknown,
+  id: string,
+  hash: string,
+  requiredType?: false,
+): ValidationResult<T>
+export function validate(
+  v: unknown,
+  id: string,
+  hash: string,
+  requiredType?: boolean,
+): ValidationResult {
+  return (requiredType ? is$typed : maybe$typed)(v, id, hash)
+    ? lexicons.validate(`${id}#${hash}`, v)
+    : {
+        success: false,
+        error: new ValidationError(
+          `Must be an object with "${hash === 'main' ? id : `${id}#${hash}`}" $type property`,
+        ),
+      }
+}
+
+export const ids = {
+  ComAtprotoLabelDefs: 'com.atproto.label.defs',
+  ComAtprotoRepoStrongRef: 'com.atproto.repo.strongRef',
+  ForumAtgoraActorPreferences: 'forum.atgora.actor.preferences',
+  ForumAtgoraDefs: 'forum.atgora.defs',
+  ForumAtgoraInteractionReaction: 'forum.atgora.interaction.reaction',
+  ForumAtgoraTopicPost: 'forum.atgora.topic.post',
+  ForumAtgoraTopicReply: 'forum.atgora.topic.reply',
+} as const
