@@ -23,7 +23,7 @@ jobs:
           registry-url: "https://npm.pkg.github.com"
           cache: "pnpm"
 
-      - run: pnpm install --frozen-lockfile
+      - run: pnpm install
 
       - run: pnpm build
 
