@@ -9,7 +9,7 @@ export const crossPostConfigSchema = z.object({
 });
 
 /**
- * Zod schema for forum.atgora.actor.preferences records.
+ * Zod schema for forum.barazo.actor.preferences records.
  *
  * Mirrors the lexicon constraints from prd-lexicons.md section 3.4.
  * Singleton record (key: literal:self).

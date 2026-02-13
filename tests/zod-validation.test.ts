@@ -9,7 +9,7 @@ import {
 const VALID_DID = "did:plc:abc123def456";
 const VALID_DATETIME = "2026-02-12T10:00:00.000Z";
 const VALID_STRONG_REF = {
-  uri: "at://did:plc:abc123/forum.atgora.topic.post/3jzfcijpj2z2a",
+  uri: "at://did:plc:abc123/forum.barazo.topic.post/3jzfcijpj2z2a",
   cid: "bafyreibouvacvqhc2vkwwtdkfynpcaoatmkde7uhrw47ne4gu63cnzc7yq",
 };
 

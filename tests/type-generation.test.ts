@@ -1,54 +1,54 @@
 import { describe, it, expect } from "vitest";
 import {
-  ForumAtgoraTopicPost,
-  ForumAtgoraTopicReply,
-  ForumAtgoraInteractionReaction,
-  ForumAtgoraActorPreferences,
+  ForumBarazoTopicPost,
+  ForumBarazoTopicReply,
+  ForumBarazoInteractionReaction,
+  ForumBarazoActorPreferences,
   LEXICON_IDS,
   schemas,
   ids,
 } from "../src/index.js";
 
 describe("generated type exports", () => {
-  it("exports ForumAtgoraTopicPost with Record type and validators", () => {
-    expect(ForumAtgoraTopicPost.isRecord).toBeTypeOf("function");
-    expect(ForumAtgoraTopicPost.validateRecord).toBeTypeOf("function");
+  it("exports ForumBarazoTopicPost with Record type and validators", () => {
+    expect(ForumBarazoTopicPost.isRecord).toBeTypeOf("function");
+    expect(ForumBarazoTopicPost.validateRecord).toBeTypeOf("function");
   });
 
-  it("exports ForumAtgoraTopicReply with Record type and validators", () => {
-    expect(ForumAtgoraTopicReply.isRecord).toBeTypeOf("function");
-    expect(ForumAtgoraTopicReply.validateRecord).toBeTypeOf("function");
+  it("exports ForumBarazoTopicReply with Record type and validators", () => {
+    expect(ForumBarazoTopicReply.isRecord).toBeTypeOf("function");
+    expect(ForumBarazoTopicReply.validateRecord).toBeTypeOf("function");
   });
 
-  it("exports ForumAtgoraInteractionReaction with Record type and validators", () => {
-    expect(ForumAtgoraInteractionReaction.isRecord).toBeTypeOf("function");
-    expect(ForumAtgoraInteractionReaction.validateRecord).toBeTypeOf(
+  it("exports ForumBarazoInteractionReaction with Record type and validators", () => {
+    expect(ForumBarazoInteractionReaction.isRecord).toBeTypeOf("function");
+    expect(ForumBarazoInteractionReaction.validateRecord).toBeTypeOf(
       "function",
     );
   });
 
-  it("exports ForumAtgoraActorPreferences with Record type and validators", () => {
-    expect(ForumAtgoraActorPreferences.isRecord).toBeTypeOf("function");
-    expect(ForumAtgoraActorPreferences.validateRecord).toBeTypeOf("function");
+  it("exports ForumBarazoActorPreferences with Record type and validators", () => {
+    expect(ForumBarazoActorPreferences.isRecord).toBeTypeOf("function");
+    expect(ForumBarazoActorPreferences.validateRecord).toBeTypeOf("function");
   });
 });
 
 describe("LEXICON_IDS constants", () => {
   it("has correct TopicPost ID", () => {
-    expect(LEXICON_IDS.TopicPost).toBe("forum.atgora.topic.post");
+    expect(LEXICON_IDS.TopicPost).toBe("forum.barazo.topic.post");
   });
 
   it("has correct TopicReply ID", () => {
-    expect(LEXICON_IDS.TopicReply).toBe("forum.atgora.topic.reply");
+    expect(LEXICON_IDS.TopicReply).toBe("forum.barazo.topic.reply");
   });
 
   it("has correct Reaction ID", () => {
-    expect(LEXICON_IDS.Reaction).toBe("forum.atgora.interaction.reaction");
+    expect(LEXICON_IDS.Reaction).toBe("forum.barazo.interaction.reaction");
   });
 
   it("has correct ActorPreferences ID", () => {
     expect(LEXICON_IDS.ActorPreferences).toBe(
-      "forum.atgora.actor.preferences",
+      "forum.barazo.actor.preferences",
     );
   });
 });
@@ -59,61 +59,61 @@ describe("generated schemas", () => {
     expect(schemas.length).toBeGreaterThan(0);
   });
 
-  it("schemas contain all ATgora lexicon IDs", () => {
+  it("schemas contain all Barazo lexicon IDs", () => {
     const schemaIds = schemas.map(
       (s: Record<string, unknown>) => s["id"] as string,
     );
-    expect(schemaIds).toContain("forum.atgora.topic.post");
-    expect(schemaIds).toContain("forum.atgora.topic.reply");
-    expect(schemaIds).toContain("forum.atgora.interaction.reaction");
-    expect(schemaIds).toContain("forum.atgora.actor.preferences");
+    expect(schemaIds).toContain("forum.barazo.topic.post");
+    expect(schemaIds).toContain("forum.barazo.topic.reply");
+    expect(schemaIds).toContain("forum.barazo.interaction.reaction");
+    expect(schemaIds).toContain("forum.barazo.actor.preferences");
   });
 });
 
 describe("generated ids map", () => {
-  it("maps ForumAtgoraTopicPost correctly", () => {
-    expect(ids.ForumAtgoraTopicPost).toBe("forum.atgora.topic.post");
+  it("maps ForumBarazoTopicPost correctly", () => {
+    expect(ids.ForumBarazoTopicPost).toBe("forum.barazo.topic.post");
   });
 
-  it("maps ForumAtgoraTopicReply correctly", () => {
-    expect(ids.ForumAtgoraTopicReply).toBe("forum.atgora.topic.reply");
+  it("maps ForumBarazoTopicReply correctly", () => {
+    expect(ids.ForumBarazoTopicReply).toBe("forum.barazo.topic.reply");
   });
 
-  it("maps ForumAtgoraInteractionReaction correctly", () => {
-    expect(ids.ForumAtgoraInteractionReaction).toBe(
-      "forum.atgora.interaction.reaction",
+  it("maps ForumBarazoInteractionReaction correctly", () => {
+    expect(ids.ForumBarazoInteractionReaction).toBe(
+      "forum.barazo.interaction.reaction",
     );
   });
 
-  it("maps ForumAtgoraActorPreferences correctly", () => {
-    expect(ids.ForumAtgoraActorPreferences).toBe(
-      "forum.atgora.actor.preferences",
+  it("maps ForumBarazoActorPreferences correctly", () => {
+    expect(ids.ForumBarazoActorPreferences).toBe(
+      "forum.barazo.actor.preferences",
     );
   });
 });
 
 describe("isRecord type guards", () => {
-  it("ForumAtgoraTopicPost.isRecord identifies correct $type", () => {
+  it("ForumBarazoTopicPost.isRecord identifies correct $type", () => {
     expect(
-      ForumAtgoraTopicPost.isRecord({
-        $type: "forum.atgora.topic.post",
+      ForumBarazoTopicPost.isRecord({
+        $type: "forum.barazo.topic.post",
         title: "Test",
       }),
     ).toBe(true);
   });
 
-  it("ForumAtgoraTopicPost.isRecord rejects wrong $type", () => {
+  it("ForumBarazoTopicPost.isRecord rejects wrong $type", () => {
     expect(
-      ForumAtgoraTopicPost.isRecord({
-        $type: "forum.atgora.topic.reply",
+      ForumBarazoTopicPost.isRecord({
+        $type: "forum.barazo.topic.reply",
         content: "Test",
       }),
     ).toBe(false);
   });
 
-  it("ForumAtgoraTopicPost.isRecord rejects non-objects", () => {
-    expect(ForumAtgoraTopicPost.isRecord("string")).toBe(false);
-    expect(ForumAtgoraTopicPost.isRecord(null)).toBe(false);
-    expect(ForumAtgoraTopicPost.isRecord(undefined)).toBe(false);
+  it("ForumBarazoTopicPost.isRecord rejects non-objects", () => {
+    expect(ForumBarazoTopicPost.isRecord("string")).toBe(false);
+    expect(ForumBarazoTopicPost.isRecord(null)).toBe(false);
+    expect(ForumBarazoTopicPost.isRecord(undefined)).toBe(false);
   });
 });

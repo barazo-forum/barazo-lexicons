@@ -5,7 +5,7 @@ import { selfLabelsSchema } from "./self-labels.js";
 const didRegex = /^did:[a-z]+:[a-zA-Z0-9._:%-]+$/;
 
 /**
- * Zod schema for forum.atgora.topic.post records.
+ * Zod schema for forum.barazo.topic.post records.
  *
  * Mirrors the lexicon constraints from prd-lexicons.md section 3.1.
  * Note: maxLength in lexicon = UTF-8 bytes, but Zod .max() counts

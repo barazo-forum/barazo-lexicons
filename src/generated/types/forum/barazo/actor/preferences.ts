@@ -12,10 +12,10 @@ import {
 
 const is$typed = _is$typed,
   validate = _validate
-const id = 'forum.atgora.actor.preferences'
+const id = 'forum.barazo.actor.preferences'
 
 export interface Main {
-  $type: 'forum.atgora.actor.preferences'
+  $type: 'forum.barazo.actor.preferences'
   /** Maximum maturity tier to show. Default: 'safe'. */
   maturityLevel: 'safe' | 'mature' | 'all'
   /** Global muted words (apply to all communities). */
@@ -47,7 +47,7 @@ export {
 }
 
 export interface CrossPostConfig {
-  $type?: 'forum.atgora.actor.preferences#crossPostConfig'
+  $type?: 'forum.barazo.actor.preferences#crossPostConfig'
   /** Cross-post new topics to Bluesky. Default: false. */
   bluesky?: boolean
   /** Cross-post new topics to Frontpage. Default: false. */

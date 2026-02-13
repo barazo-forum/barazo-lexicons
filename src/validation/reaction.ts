@@ -4,7 +4,7 @@ import { strongRefSchema } from "./strong-ref.js";
 const didRegex = /^did:[a-z]+:[a-zA-Z0-9._:%-]+$/;
 
 /**
- * Zod schema for forum.atgora.interaction.reaction records.
+ * Zod schema for forum.barazo.interaction.reaction records.
  *
  * Mirrors the lexicon constraints from prd-lexicons.md section 3.3.
  */

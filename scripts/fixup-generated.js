@@ -20,11 +20,11 @@ const REPLACEMENT_INDEX = `/**
  */
 export * as ComAtprotoLabelDefs from "./types/com/atproto/label/defs.js";
 export * as ComAtprotoRepoStrongRef from "./types/com/atproto/repo/strongRef.js";
-export * as ForumAtgoraActorPreferences from "./types/forum/atgora/actor/preferences.js";
-export * as ForumAtgoraDefs from "./types/forum/atgora/defs.js";
-export * as ForumAtgoraInteractionReaction from "./types/forum/atgora/interaction/reaction.js";
-export * as ForumAtgoraTopicPost from "./types/forum/atgora/topic/post.js";
-export * as ForumAtgoraTopicReply from "./types/forum/atgora/topic/reply.js";
+export * as ForumBarazoActorPreferences from "./types/forum/barazo/actor/preferences.js";
+export * as ForumBarazoDefs from "./types/forum/barazo/defs.js";
+export * as ForumBarazoInteractionReaction from "./types/forum/barazo/interaction/reaction.js";
+export * as ForumBarazoTopicPost from "./types/forum/barazo/topic/post.js";
+export * as ForumBarazoTopicReply from "./types/forum/barazo/topic/reply.js";
 export { schemas, validate } from "./lexicons.js";
 `;
 

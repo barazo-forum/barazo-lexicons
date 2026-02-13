@@ -13,10 +13,10 @@ import type * as ComAtprotoLabelDefs from '../../../com/atproto/label/defs.js'
 
 const is$typed = _is$typed,
   validate = _validate
-const id = 'forum.atgora.topic.post'
+const id = 'forum.barazo.topic.post'
 
 export interface Main {
-  $type: 'forum.atgora.topic.post'
+  $type: 'forum.barazo.topic.post'
   /** Topic title. */
   title: string
   /** Topic body in markdown. */

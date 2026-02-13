@@ -1,18 +1,18 @@
 /**
- * @atgora-forum/lexicons
+ * @barazo-forum/lexicons
  *
  * AT Protocol lexicon schemas and generated TypeScript types
- * for the ATgora forum platform.
+ * for the Barazo forum platform.
  *
- * Namespace: forum.atgora.*
+ * Namespace: forum.barazo.*
  */
 
 // Generated types (from lex-cli)
 export {
-  ForumAtgoraTopicPost,
-  ForumAtgoraTopicReply,
-  ForumAtgoraInteractionReaction,
-  ForumAtgoraActorPreferences,
+  ForumBarazoTopicPost,
+  ForumBarazoTopicReply,
+  ForumBarazoInteractionReaction,
+  ForumBarazoActorPreferences,
   ComAtprotoRepoStrongRef,
   ComAtprotoLabelDefs,
 } from "./generated/index.js";
@@ -39,8 +39,8 @@ export {
 
 // Lexicon ID constants
 export const LEXICON_IDS = {
-  TopicPost: "forum.atgora.topic.post",
-  TopicReply: "forum.atgora.topic.reply",
-  Reaction: "forum.atgora.interaction.reaction",
-  ActorPreferences: "forum.atgora.actor.preferences",
+  TopicPost: "forum.barazo.topic.post",
+  TopicReply: "forum.barazo.topic.reply",
+  Reaction: "forum.barazo.interaction.reaction",
+  ActorPreferences: "forum.barazo.actor.preferences",
 } as const;

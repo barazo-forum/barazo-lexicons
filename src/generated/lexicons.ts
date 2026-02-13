@@ -210,9 +210,9 @@ export const schemaDict = {
       },
     },
   },
-  ForumAtgoraActorPreferences: {
+  ForumBarazoActorPreferences: {
     lexicon: 1,
-    id: 'forum.atgora.actor.preferences',
+    id: 'forum.barazo.actor.preferences',
     defs: {
       main: {
         type: 'record',
@@ -259,7 +259,7 @@ export const schemaDict = {
             },
             crossPostDefaults: {
               type: 'ref',
-              ref: 'lex:forum.atgora.actor.preferences#crossPostConfig',
+              ref: 'lex:forum.barazo.actor.preferences#crossPostConfig',
               description: 'Per-service toggle for cross-posting new topics.',
             },
             updatedAt: {
@@ -286,16 +286,16 @@ export const schemaDict = {
       },
     },
   },
-  ForumAtgoraDefs: {
+  ForumBarazoDefs: {
     lexicon: 1,
-    id: 'forum.atgora.defs',
+    id: 'forum.barazo.defs',
     description:
-      'Shared type definitions for ATgora forum lexicons. Reserved for future reusable types.',
+      'Shared type definitions for Barazo forum lexicons. Reserved for future reusable types.',
     defs: {},
   },
-  ForumAtgoraInteractionReaction: {
+  ForumBarazoInteractionReaction: {
     lexicon: 1,
-    id: 'forum.atgora.interaction.reaction',
+    id: 'forum.barazo.interaction.reaction',
     defs: {
       main: {
         type: 'record',
@@ -335,9 +335,9 @@ export const schemaDict = {
       },
     },
   },
-  ForumAtgoraTopicPost: {
+  ForumBarazoTopicPost: {
     lexicon: 1,
-    id: 'forum.atgora.topic.post',
+    id: 'forum.barazo.topic.post',
     defs: {
       main: {
         type: 'record',
@@ -405,9 +405,9 @@ export const schemaDict = {
       },
     },
   },
-  ForumAtgoraTopicReply: {
+  ForumBarazoTopicReply: {
     lexicon: 1,
-    id: 'forum.atgora.topic.reply',
+    id: 'forum.barazo.topic.reply',
     defs: {
       main: {
         type: 'record',
@@ -433,7 +433,7 @@ export const schemaDict = {
               type: 'ref',
               ref: 'lex:com.atproto.repo.strongRef',
               description:
-                'The original topic (AT URI of forum.atgora.topic.post).',
+                'The original topic (AT URI of forum.barazo.topic.post).',
             },
             parent: {
               type: 'ref',
@@ -498,9 +498,9 @@ export function validate(
 export const ids = {
   ComAtprotoLabelDefs: 'com.atproto.label.defs',
   ComAtprotoRepoStrongRef: 'com.atproto.repo.strongRef',
-  ForumAtgoraActorPreferences: 'forum.atgora.actor.preferences',
-  ForumAtgoraDefs: 'forum.atgora.defs',
-  ForumAtgoraInteractionReaction: 'forum.atgora.interaction.reaction',
-  ForumAtgoraTopicPost: 'forum.atgora.topic.post',
-  ForumAtgoraTopicReply: 'forum.atgora.topic.reply',
+  ForumBarazoActorPreferences: 'forum.barazo.actor.preferences',
+  ForumBarazoDefs: 'forum.barazo.defs',
+  ForumBarazoInteractionReaction: 'forum.barazo.interaction.reaction',
+  ForumBarazoTopicPost: 'forum.barazo.topic.post',
+  ForumBarazoTopicReply: 'forum.barazo.topic.reply',
 } as const

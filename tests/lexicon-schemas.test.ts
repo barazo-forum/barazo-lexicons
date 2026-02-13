@@ -2,7 +2,7 @@ import { describe, it, expect } from "vitest";
 import { readFile, readdir } from "node:fs/promises";
 import { join, resolve } from "node:path";
 
-const LEXICONS_DIR = resolve(import.meta.dirname, "../lexicons/forum/atgora");
+const LEXICONS_DIR = resolve(import.meta.dirname, "../lexicons/forum/barazo");
 
 async function loadJson(path: string): Promise<unknown> {
   const content = await readFile(path, "utf-8");
@@ -41,21 +41,21 @@ describe("Lexicon JSON schema structure", () => {
     for (const file of files) {
       const lexicon = (await loadJson(file)) as Record<string, unknown>;
       const id = lexicon["id"] as string;
-      // Convert "forum.atgora.topic.post" to a path fragment "forum/atgora/topic/post.json"
+      // Convert "forum.barazo.topic.post" to a path fragment "forum/barazo/topic/post.json"
       const expectedPath = id.replace(/\./g, "/") + ".json";
       expect(file).toContain(expectedPath);
     }
   });
 });
 
-describe("forum.atgora.topic.post lexicon", () => {
+describe("forum.barazo.topic.post lexicon", () => {
   let schema: Record<string, unknown>;
 
   it("loads successfully", async () => {
     schema = (await loadJson(
       join(LEXICONS_DIR, "topic/post.json"),
     )) as Record<string, unknown>;
-    expect(schema["id"]).toBe("forum.atgora.topic.post");
+    expect(schema["id"]).toBe("forum.barazo.topic.post");
   });
 
   it("defines a record with key type tid", () => {
@@ -120,14 +120,14 @@ describe("forum.atgora.topic.post lexicon", () => {
   });
 });
 
-describe("forum.atgora.topic.reply lexicon", () => {
+describe("forum.barazo.topic.reply lexicon", () => {
   let schema: Record<string, unknown>;
 
   it("loads successfully", async () => {
     schema = (await loadJson(
       join(LEXICONS_DIR, "topic/reply.json"),
     )) as Record<string, unknown>;
-    expect(schema["id"]).toBe("forum.atgora.topic.reply");
+    expect(schema["id"]).toBe("forum.barazo.topic.reply");
   });
 
   it("has required fields: content, root, parent, community, createdAt", () => {
@@ -160,14 +160,14 @@ describe("forum.atgora.topic.reply lexicon", () => {
   });
 });
 
-describe("forum.atgora.interaction.reaction lexicon", () => {
+describe("forum.barazo.interaction.reaction lexicon", () => {
   let schema: Record<string, unknown>;
 
   it("loads successfully", async () => {
     schema = (await loadJson(
       join(LEXICONS_DIR, "interaction/reaction.json"),
     )) as Record<string, unknown>;
-    expect(schema["id"]).toBe("forum.atgora.interaction.reaction");
+    expect(schema["id"]).toBe("forum.barazo.interaction.reaction");
   });
 
   it("has required fields: subject, type, community, createdAt", () => {
@@ -191,14 +191,14 @@ describe("forum.atgora.interaction.reaction lexicon", () => {
   });
 });
 
-describe("forum.atgora.actor.preferences lexicon", () => {
+describe("forum.barazo.actor.preferences lexicon", () => {
   let schema: Record<string, unknown>;
 
   it("loads successfully", async () => {
     schema = (await loadJson(
       join(LEXICONS_DIR, "actor/preferences.json"),
     )) as Record<string, unknown>;
-    expect(schema["id"]).toBe("forum.atgora.actor.preferences");
+    expect(schema["id"]).toBe("forum.barazo.actor.preferences");
   });
 
   it("uses literal:self key (singleton record)", () => {

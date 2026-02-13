@@ -8,4 +8,4 @@ import { type $Typed, is$typed as _is$typed, type OmitKey } from '../../../util.
 
 const is$typed = _is$typed,
   validate = _validate
-const id = 'forum.atgora.defs'
+const id = 'forum.barazo.defs'

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "forum.atgora.topic.reply",
+  "id": "forum.barazo.topic.reply",
   "defs": {
     "main": {
       "type": "record",
@@ -24,7 +24,7 @@
           "root": {
             "type": "ref",
             "ref": "com.atproto.repo.strongRef",
-            "description": "The original topic (AT URI of forum.atgora.topic.post)."
+            "description": "The original topic (AT URI of forum.barazo.topic.post)."
           },
           "parent": {
             "type": "ref",

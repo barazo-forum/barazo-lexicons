@@ -13,10 +13,10 @@ import type * as ComAtprotoRepoStrongRef from '../../../com/atproto/repo/strongR
 
 const is$typed = _is$typed,
   validate = _validate
-const id = 'forum.atgora.interaction.reaction'
+const id = 'forum.barazo.interaction.reaction'
 
 export interface Main {
-  $type: 'forum.atgora.interaction.reaction'
+  $type: 'forum.barazo.interaction.reaction'
   subject: ComAtprotoRepoStrongRef.Main
   /** Reaction type (e.g., 'like', 'heart', 'thumbsup'). Must match community's configured reaction set. */
   type: string

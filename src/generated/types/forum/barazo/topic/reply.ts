@@ -14,10 +14,10 @@ import type * as ComAtprotoLabelDefs from '../../../com/atproto/label/defs.js'
 
 const is$typed = _is$typed,
   validate = _validate
-const id = 'forum.atgora.topic.reply'
+const id = 'forum.barazo.topic.reply'
 
 export interface Main {
-  $type: 'forum.atgora.topic.reply'
+  $type: 'forum.barazo.topic.reply'
   /** Reply body in markdown. */
   content: string
   /** Content format. Defaults to 'markdown' if omitted. */
