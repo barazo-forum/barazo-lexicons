@@ -64,6 +64,18 @@ import { schemas } from "@barazo-forum/lexicons";
 // Array of LexiconDoc objects for all forum.barazo.* schemas
 ```
 
+### Permission Set (OAuth Scopes)
+
+The package includes a permission set lexicon for AT Protocol OAuth. When the protocol's permission set system is fully deployed, clients will request `include:forum.barazo.authForumAccess` as an OAuth scope instead of `transition:generic`.
+
+```typescript
+import { LEXICON_IDS } from "@barazo-forum/lexicons";
+
+LEXICON_IDS.AuthForumAccess // "forum.barazo.authForumAccess"
+```
+
+The permission set declares `repo` access for all four record collections. Blob permissions (for future media attachments) must be requested separately per the AT Protocol spec.
+
 ## Record Types
 
 | Lexicon ID | Description | Key Type |
@@ -72,6 +84,12 @@ import { schemas } from "@barazo-forum/lexicons";
 | `forum.barazo.topic.reply` | Reply to a topic (content, root ref, parent ref, community) | `tid` |
 | `forum.barazo.interaction.reaction` | Reaction to content (subject ref, type, community) | `tid` |
 | `forum.barazo.actor.preferences` | User preferences singleton (maturity level, muted words, blocked DIDs, cross-post defaults) | `literal:self` |
+
+## Permission Set
+
+| Lexicon ID | Description |
+|------------|-------------|
+| `forum.barazo.authForumAccess` | OAuth permission set granting repo access to all Barazo record collections |
 
 ## Development
 

@@ -51,6 +51,10 @@ describe("LEXICON_IDS constants", () => {
       "forum.barazo.actor.preferences",
     );
   });
+
+  it("has correct AuthForumAccess ID", () => {
+    expect(LEXICON_IDS.AuthForumAccess).toBe("forum.barazo.authForumAccess");
+  });
 });
 
 describe("generated schemas", () => {
@@ -67,6 +71,7 @@ describe("generated schemas", () => {
     expect(schemaIds).toContain("forum.barazo.topic.reply");
     expect(schemaIds).toContain("forum.barazo.interaction.reaction");
     expect(schemaIds).toContain("forum.barazo.actor.preferences");
+    expect(schemaIds).toContain("forum.barazo.authForumAccess");
   });
 });
 
@@ -88,6 +93,12 @@ describe("generated ids map", () => {
   it("maps ForumBarazoActorPreferences correctly", () => {
     expect(ids.ForumBarazoActorPreferences).toBe(
       "forum.barazo.actor.preferences",
+    );
+  });
+
+  it("maps ForumBarazoAuthForumAccess correctly", () => {
+    expect(ids.ForumBarazoAuthForumAccess).toBe(
+      "forum.barazo.authForumAccess",
     );
   });
 });

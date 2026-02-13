@@ -1,6 +1,7 @@
 {
   "lexicon": 1,
   "id": "forum.barazo.topic.post",
+  "description": "A forum topic post with title, content, community attribution, and optional tags and content labels.",
   "defs": {
     "main": {
       "type": "record",

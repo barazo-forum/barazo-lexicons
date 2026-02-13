@@ -1,6 +1,7 @@
 {
   "lexicon": 1,
   "id": "forum.barazo.actor.preferences",
+  "description": "User-level moderation, safety, and cross-posting preferences. Portable across AppViews.",
   "defs": {
     "main": {
       "type": "record",

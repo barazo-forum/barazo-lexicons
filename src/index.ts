@@ -43,4 +43,5 @@ export const LEXICON_IDS = {
   TopicReply: "forum.barazo.topic.reply",
   Reaction: "forum.barazo.interaction.reaction",
   ActorPreferences: "forum.barazo.actor.preferences",
+  AuthForumAccess: "forum.barazo.authForumAccess",
 } as const;

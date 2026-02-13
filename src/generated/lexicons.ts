@@ -213,6 +213,8 @@ export const schemaDict = {
   ForumBarazoActorPreferences: {
     lexicon: 1,
     id: 'forum.barazo.actor.preferences',
+    description:
+      'User-level moderation, safety, and cross-posting preferences. Portable across AppViews.',
     defs: {
       main: {
         type: 'record',
@@ -286,6 +288,32 @@ export const schemaDict = {
       },
     },
   },
+  ForumBarazoAuthForumAccess: {
+    lexicon: 1,
+    id: 'forum.barazo.authForumAccess',
+    description:
+      'Permission set for Barazo forum access. Grants ability to create topics, replies, and reactions, and manage user preferences.',
+    defs: {
+      main: {
+        type: 'permission-set',
+        title: 'Barazo Forum',
+        detail:
+          'Create topics, replies, and reactions. Manage your forum preferences.',
+        permissions: [
+          {
+            type: 'permission',
+            resource: 'repo',
+            collection: [
+              'forum.barazo.topic.post',
+              'forum.barazo.topic.reply',
+              'forum.barazo.interaction.reaction',
+              'forum.barazo.actor.preferences',
+            ],
+          },
+        ],
+      },
+    },
+  },
   ForumBarazoDefs: {
     lexicon: 1,
     id: 'forum.barazo.defs',
@@ -296,6 +324,8 @@ export const schemaDict = {
   ForumBarazoInteractionReaction: {
     lexicon: 1,
     id: 'forum.barazo.interaction.reaction',
+    description:
+      'A reaction to a forum topic or reply, with configurable reaction types per community.',
     defs: {
       main: {
         type: 'record',
@@ -338,6 +368,8 @@ export const schemaDict = {
   ForumBarazoTopicPost: {
     lexicon: 1,
     id: 'forum.barazo.topic.post',
+    description:
+      'A forum topic post with title, content, community attribution, and optional tags and content labels.',
     defs: {
       main: {
         type: 'record',
@@ -408,6 +440,8 @@ export const schemaDict = {
   ForumBarazoTopicReply: {
     lexicon: 1,
     id: 'forum.barazo.topic.reply',
+    description:
+      'A reply to a forum topic or another reply, with threaded parent references and community attribution.',
     defs: {
       main: {
         type: 'record',
@@ -499,6 +533,7 @@ export const ids = {
   ComAtprotoLabelDefs: 'com.atproto.label.defs',
   ComAtprotoRepoStrongRef: 'com.atproto.repo.strongRef',
   ForumBarazoActorPreferences: 'forum.barazo.actor.preferences',
+  ForumBarazoAuthForumAccess: 'forum.barazo.authForumAccess',
   ForumBarazoDefs: 'forum.barazo.defs',
   ForumBarazoInteractionReaction: 'forum.barazo.interaction.reaction',
   ForumBarazoTopicPost: 'forum.barazo.topic.post',

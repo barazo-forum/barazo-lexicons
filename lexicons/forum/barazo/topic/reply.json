@@ -1,6 +1,7 @@
 {
   "lexicon": 1,
   "id": "forum.barazo.topic.reply",
+  "description": "A reply to a forum topic or another reply, with threaded parent references and community attribution.",
   "defs": {
     "main": {
       "type": "record",

@@ -19,7 +19,7 @@ async function getAllLexiconFiles(dir: string): Promise<string[]> {
 describe("Lexicon JSON schema structure", () => {
   it("all lexicon files are valid JSON", async () => {
     const files = await getAllLexiconFiles(LEXICONS_DIR);
-    expect(files.length).toBeGreaterThanOrEqual(4);
+    expect(files.length).toBeGreaterThanOrEqual(5);
     for (const file of files) {
       await expect(loadJson(file)).resolves.toBeDefined();
     }
@@ -188,6 +188,52 @@ describe("forum.barazo.interaction.reaction lexicon", () => {
     const subject = props["subject"] as Record<string, unknown>;
     expect(subject["type"]).toBe("ref");
     expect(subject["ref"]).toBe("com.atproto.repo.strongRef");
+  });
+});
+
+describe("forum.barazo.authForumAccess lexicon", () => {
+  let schema: Record<string, unknown>;
+
+  it("loads successfully", async () => {
+    schema = (await loadJson(
+      join(LEXICONS_DIR, "authForumAccess.json"),
+    )) as Record<string, unknown>;
+    expect(schema["id"]).toBe("forum.barazo.authForumAccess");
+  });
+
+  it("has a top-level description", () => {
+    expect(schema["description"]).toBeTypeOf("string");
+    expect((schema["description"] as string).length).toBeGreaterThan(0);
+  });
+
+  it("defines a permission-set type", () => {
+    const defs = schema["defs"] as Record<string, unknown>;
+    const main = defs["main"] as Record<string, unknown>;
+    expect(main["type"]).toBe("permission-set");
+  });
+
+  it("has title and detail strings", () => {
+    const defs = schema["defs"] as Record<string, unknown>;
+    const main = defs["main"] as Record<string, unknown>;
+    expect(main["title"]).toBeTypeOf("string");
+    expect(main["detail"]).toBeTypeOf("string");
+  });
+
+  it("declares repo permissions for all Barazo record collections", () => {
+    const defs = schema["defs"] as Record<string, unknown>;
+    const main = defs["main"] as Record<string, unknown>;
+    const permissions = main["permissions"] as Record<string, unknown>[];
+    expect(permissions).toHaveLength(1);
+
+    const repoPerm = permissions[0] as Record<string, unknown>;
+    expect(repoPerm["type"]).toBe("permission");
+    expect(repoPerm["resource"]).toBe("repo");
+
+    const collections = repoPerm["collection"] as string[];
+    expect(collections).toContain("forum.barazo.topic.post");
+    expect(collections).toContain("forum.barazo.topic.reply");
+    expect(collections).toContain("forum.barazo.interaction.reaction");
+    expect(collections).toContain("forum.barazo.actor.preferences");
   });
 });
 

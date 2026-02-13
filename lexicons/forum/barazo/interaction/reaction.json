@@ -1,6 +1,7 @@
 {
   "lexicon": 1,
   "id": "forum.barazo.interaction.reaction",
+  "description": "A reaction to a forum topic or reply, with configurable reaction types per community.",
   "defs": {
     "main": {
       "type": "record",
