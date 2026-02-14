@@ -2,6 +2,18 @@
 
 AT Protocol lexicon schemas and generated TypeScript types for the Barazo forum platform. Defines the `forum.barazo.*` namespace with record types for topics, replies, reactions, and user preferences.
 
+**Status:** Alpha -- All MVP lexicon schemas defined, published to GitHub Packages
+
+## What is this?
+
+Lexicons are AT Protocol schemas that define the data model for Barazo forums. They specify what a topic, reply, reaction, and user preferences record looks like in the AT Protocol ecosystem. These schemas are the contract between the user's PDS (Personal Data Server) and the Barazo AppView, ensuring all forum data is portable and interoperable.
+
+This package provides:
+- JSON lexicon schema files (the source of truth)
+- Generated TypeScript types with type guards and validators
+- Zod validation schemas for runtime input validation
+- Lexicon IDs as constants
+
 ## Installation
 
 For npm consumers outside the workspace, configure GitHub Packages access in `.npmrc`:
@@ -101,6 +113,13 @@ pnpm generate      # Regenerate types from lexicon JSON
 pnpm lint          # Lint
 pnpm typecheck     # Type check
 ```
+
+## Related Repositories
+
+- **[barazo-api](https://github.com/barazo-forum/barazo-api)** -- Backend (AGPL-3.0)
+- **[barazo-web](https://github.com/barazo-forum/barazo-web)** -- Frontend (MIT)
+- **[barazo-deploy](https://github.com/barazo-forum/barazo-deploy)** -- Deployment templates (MIT)
+- **[Organization](https://github.com/barazo-forum)** -- All repos
 
 ## License
 
