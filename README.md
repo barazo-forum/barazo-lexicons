@@ -1,21 +1,32 @@
+<div align="center">
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/barazo-forum/.github/main/assets/logo-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/barazo-forum/.github/main/assets/logo-light.svg">
+  <img alt="Barazo Logo" src="https://raw.githubusercontent.com/barazo-forum/.github/main/assets/logo-dark.svg" width="120">
+</picture>
+
 # Barazo Lexicons
 
-AT Protocol lexicon schemas and generated TypeScript types for the Barazo forum platform.
+**AT Protocol lexicon schemas and generated TypeScript types for the `forum.barazo.*` namespace.**
 
-![Status: Alpha](https://img.shields.io/badge/status-alpha-orange)
+[![Status: Alpha](https://img.shields.io/badge/status-alpha-orange)]()
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![CI](https://github.com/barazo-forum/barazo-lexicons/actions/workflows/ci.yml/badge.svg)](https://github.com/barazo-forum/barazo-lexicons/actions/workflows/ci.yml)
+[![Node.js](https://img.shields.io/badge/node-24%20LTS-brightgreen)](https://nodejs.org/)
+[![TypeScript](https://img.shields.io/badge/typescript-5.x-blue)](https://www.typescriptlang.org/)
 
-## What is this?
+</div>
+
+---
+
+## Overview
 
 [Lexicons](https://atproto.com/specs/lexicon) are the schema language of the AT Protocol. They define how data is structured, validated, and exchanged across the decentralized network. Every record stored on a user's PDS (Personal Data Server) must conform to a lexicon schema.
 
 This package defines the `forum.barazo.*` namespace -- the data contract between a user's PDS and any Barazo AppView. Because the schemas live on the protocol layer, all forum data (topics, replies, reactions, preferences) is portable: users own their data and can move between AppViews without loss.
 
-The package provides:
-
-- JSON lexicon schema files (the source of truth)
-- Generated TypeScript types with type guards and validators
-- Zod validation schemas for runtime input validation
-- Lexicon ID constants
+---
 
 ## Lexicon Schemas
 
@@ -28,9 +39,11 @@ The package provides:
 | `forum.barazo.authForumAccess` | OAuth permission set granting repo access to all Barazo record collections | -- |
 | `forum.barazo.defs` | Shared type definitions (reserved for future reusable types) | -- |
 
+---
+
 ## Package Exports
 
-### Generated Types
+**Generated Types:**
 
 ```typescript
 import {
@@ -52,7 +65,7 @@ if (ForumBarazoTopicPost.isRecord(record)) {
 const result = ForumBarazoTopicPost.validateRecord(record);
 ```
 
-### Zod Validation Schemas
+**Zod Validation Schemas:**
 
 ```typescript
 import {
@@ -68,7 +81,7 @@ if (result.success) {
 }
 ```
 
-### Lexicon ID Constants
+**Lexicon ID Constants:**
 
 ```typescript
 import { LEXICON_IDS, ids } from "@barazo-forum/lexicons";
@@ -80,14 +93,18 @@ LEXICON_IDS.ActorPreferences // "forum.barazo.actor.preferences"
 LEXICON_IDS.AuthForumAccess // "forum.barazo.authForumAccess"
 ```
 
-### Raw Lexicon Schemas
+**Raw Lexicon Schemas:**
 
 ```typescript
 import { schemas } from "@barazo-forum/lexicons";
 // Array of LexiconDoc objects for all forum.barazo.* schemas
 ```
 
-## Installation
+---
+
+## Quick Start
+
+**Prerequisites:** Node.js 24 LTS, pnpm.
 
 Configure GitHub Packages access in `.npmrc`:
 
@@ -95,7 +112,7 @@ Configure GitHub Packages access in `.npmrc`:
 @barazo-forum:registry=https://npm.pkg.github.com
 ```
 
-Then install:
+Install:
 
 ```bash
 pnpm add @barazo-forum/lexicons
@@ -103,24 +120,48 @@ pnpm add @barazo-forum/lexicons
 
 Workspace consumers (`barazo-api`, `barazo-web`) are already linked via pnpm workspace.
 
+---
+
 ## Development
 
 ```bash
 pnpm install
-pnpm test          # Run tests (74 tests across 3 suites)
+pnpm test          # Run tests
 pnpm build         # Compile TypeScript
 pnpm generate      # Regenerate types from lexicon JSON
 pnpm lint          # Lint
 pnpm typecheck     # Type check
 ```
 
+See [CONTRIBUTING.md](https://github.com/barazo-forum/.github/blob/main/CONTRIBUTING.md) for branching strategy, commit format, and code review process.
+
+---
+
 ## Related Repositories
 
-- [barazo-api](https://github.com/barazo-forum/barazo-api) -- AppView backend (AGPL-3.0)
-- [barazo-web](https://github.com/barazo-forum/barazo-web) -- Forum frontend (MIT)
-- [barazo-deploy](https://github.com/barazo-forum/barazo-deploy) -- Docker Compose deployment templates (MIT)
-- [barazo-forum](https://github.com/barazo-forum) -- GitHub organization
+| Repository | Description | License |
+|------------|-------------|---------|
+| [barazo-api](https://github.com/barazo-forum/barazo-api) | AppView backend (Fastify, firehose, REST API) | AGPL-3.0 |
+| [barazo-web](https://github.com/barazo-forum/barazo-web) | Forum frontend (Next.js, Tailwind) | MIT |
+| [barazo-deploy](https://github.com/barazo-forum/barazo-deploy) | Docker Compose deployment templates | MIT |
+| [barazo-website](https://github.com/barazo-forum/barazo-website) | Marketing + documentation site | MIT |
+
+---
+
+## Community
+
+- **Website:** [barazo.forum](https://barazo.forum)
+- **Discussions:** [GitHub Discussions](https://github.com/orgs/barazo-forum/discussions)
+- **Issues:** [Report bugs](https://github.com/barazo-forum/barazo-lexicons/issues)
+
+---
 
 ## License
 
-MIT
+**MIT** -- Protocol schemas should be freely usable by anyone building on the AT Protocol.
+
+See [LICENSE](LICENSE) for full terms.
+
+---
+
+(c) 2026 Barazo
