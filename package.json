@@ -37,16 +37,16 @@
   },
   "dependencies": {
     "@atproto/lexicon": "^0.6.1",
-    "multiformats": "^13.4.2",
-    "zod": "^4.3.6"
+    "multiformats": "catalog:",
+    "zod": "catalog:"
   },
   "devDependencies": {
     "@atproto/lex-cli": "^0.9.8",
-    "@types/node": "^25.2.3",
-    "@vitest/coverage-v8": "^4.0.18",
-    "eslint": "^9.28.0",
-    "typescript": "^5.9.3",
-    "typescript-eslint": "^8.55.0",
-    "vitest": "^4.0.18"
+    "@types/node": "catalog:",
+    "@vitest/coverage-v8": "catalog:",
+    "eslint": "catalog:",
+    "typescript": "catalog:",
+    "typescript-eslint": "catalog:",
+    "vitest": "catalog:"
   }
 }
