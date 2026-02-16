@@ -30,6 +30,7 @@
     "lint:fix": "eslint --fix src/ tests/",
     "test": "vitest run",
     "test:watch": "vitest",
+    "test:compat": "vitest run tests/backward-compatibility.test.ts",
     "test:coverage": "vitest run --coverage",
     "generate": "lex gen-server ./src/generated ./lexicons/**/*.json && node scripts/fixup-generated.js",
     "clean": "rm -rf dist"
