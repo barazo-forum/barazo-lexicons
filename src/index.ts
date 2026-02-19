@@ -15,11 +15,11 @@ export {
   ForumBarazoActorPreferences,
   ComAtprotoRepoStrongRef,
   ComAtprotoLabelDefs,
-} from "./generated/index.js";
+} from './generated/index.js'
 
 // Generated lexicon schemas and validation (from lex-cli)
-export { schemas, validate } from "./generated/index.js";
-export { ids } from "./generated/lexicons.js";
+export { schemas, validate } from './generated/index.js'
+export { ids } from './generated/lexicons.js'
 
 // Zod validation schemas (hand-written, mirrors lexicon constraints)
 export {
@@ -35,13 +35,13 @@ export {
   type TopicReplyInput,
   type ReactionInput,
   type ActorPreferencesInput,
-} from "./validation/index.js";
+} from './validation/index.js'
 
 // Lexicon ID constants
 export const LEXICON_IDS = {
-  TopicPost: "forum.barazo.topic.post",
-  TopicReply: "forum.barazo.topic.reply",
-  Reaction: "forum.barazo.interaction.reaction",
-  ActorPreferences: "forum.barazo.actor.preferences",
-  AuthForumAccess: "forum.barazo.authForumAccess",
-} as const;
+  TopicPost: 'forum.barazo.topic.post',
+  TopicReply: 'forum.barazo.topic.reply',
+  Reaction: 'forum.barazo.interaction.reaction',
+  ActorPreferences: 'forum.barazo.actor.preferences',
+  AuthForumAccess: 'forum.barazo.authForumAccess',
+} as const

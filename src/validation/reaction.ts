@@ -1,7 +1,7 @@
-import { z } from "zod";
-import { strongRefSchema } from "./strong-ref.js";
+import { z } from 'zod'
+import { strongRefSchema } from './strong-ref.js'
 
-const didRegex = /^did:[a-z]+:[a-zA-Z0-9._:%-]+$/;
+const didRegex = /^did:[a-z]+:[a-zA-Z0-9._:%-]+$/
 
 /**
  * Zod schema for forum.barazo.interaction.reaction records.
@@ -13,6 +13,6 @@ export const reactionSchema = z.object({
   type: z.string().min(1).max(300),
   community: z.string().regex(didRegex),
   createdAt: z.iso.datetime(),
-});
+})
 
-export type ReactionInput = z.input<typeof reactionSchema>;
+export type ReactionInput = z.input<typeof reactionSchema>

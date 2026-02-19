@@ -3,7 +3,7 @@ name: Publish Package
 on:
   push:
     tags:
-      - "v*"
+      - 'v*'
 
 permissions:
   contents: read
@@ -19,8 +19,8 @@ jobs:
 
       - uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6.2.0
         with:
-          node-version: "24"
-          registry-url: "https://npm.pkg.github.com"
+          node-version: '24'
+          registry-url: 'https://npm.pkg.github.com'
 
       - run: pnpm install
 

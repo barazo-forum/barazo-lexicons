@@ -1,35 +1,32 @@
-import tseslint from "typescript-eslint";
+import tseslint from 'typescript-eslint'
 
 export default tseslint.config(
   ...tseslint.configs.strictTypeChecked,
   {
     rules: {
-      "no-console": "error",
-      "@typescript-eslint/no-explicit-any": "error",
-      "@typescript-eslint/no-unused-vars": [
-        "error",
-        { argsIgnorePattern: "^_", varsIgnorePattern: "^_" },
+      'no-console': 'error',
+      '@typescript-eslint/no-explicit-any': 'error',
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
       ],
-      "@typescript-eslint/consistent-type-imports": [
-        "error",
-        { prefer: "type-imports" },
-      ],
+      '@typescript-eslint/consistent-type-imports': ['error', { prefer: 'type-imports' }],
     },
   },
   {
-    ignores: ["dist/", "node_modules/", "*.config.*"],
+    ignores: ['dist/', 'node_modules/', '*.config.*'],
   },
   {
     languageOptions: {
       parserOptions: {
         projectService: {
-          allowDefaultProject: ["tests/*.ts", "tests/fixtures/*.ts"],
+          allowDefaultProject: ['tests/*.ts', 'tests/fixtures/*.ts'],
         },
         tsconfigRootDir: import.meta.dirname,
       },
     },
   },
   {
-    ignores: ["src/generated/**"],
-  },
-);
+    ignores: ['src/generated/**'],
+  }
+)
