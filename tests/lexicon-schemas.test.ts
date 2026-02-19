@@ -241,13 +241,13 @@ describe('forum.barazo.actor.preferences lexicon', () => {
     expect(main['key']).toBe('literal:self')
   })
 
-  it('has maturityLevel enum with safe, mature, all', () => {
+  it('has maturityLevel knownValues with safe, mature, all', () => {
     const defs = schema['defs'] as Record<string, unknown>
     const main = defs['main'] as Record<string, unknown>
     const record = main['record'] as Record<string, unknown>
     const props = record['properties'] as Record<string, unknown>
     const ml = props['maturityLevel'] as Record<string, unknown>
-    expect(ml['enum']).toEqual(['safe', 'mature', 'all'])
+    expect(ml['knownValues']).toEqual(['safe', 'mature', 'all'])
   })
 
   it('defines crossPostConfig as a separate def', () => {

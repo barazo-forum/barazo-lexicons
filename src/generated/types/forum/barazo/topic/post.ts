@@ -22,7 +22,7 @@ export interface Main {
   /** Topic body in markdown. */
   content: string
   /** Content format. Defaults to 'markdown' if omitted. */
-  contentFormat?: 'markdown'
+  contentFormat?: 'markdown' | (string & {})
   /** DID of the community where this record was created. Immutable origin identifier for cross-community attribution. */
   community: string
   /** Category rkey within the community. */

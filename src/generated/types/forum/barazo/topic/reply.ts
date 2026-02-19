@@ -21,7 +21,7 @@ export interface Main {
   /** Reply body in markdown. */
   content: string
   /** Content format. Defaults to 'markdown' if omitted. */
-  contentFormat?: 'markdown'
+  contentFormat?: 'markdown' | (string & {})
   root: ComAtprotoRepoStrongRef.Main
   parent: ComAtprotoRepoStrongRef.Main
   /** DID of the community where this reply was created. Immutable origin identifier. */

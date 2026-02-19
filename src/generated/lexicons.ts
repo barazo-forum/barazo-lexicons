@@ -227,7 +227,7 @@ export const schemaDict = {
           properties: {
             maturityLevel: {
               type: 'string',
-              enum: ['safe', 'mature', 'all'],
+              knownValues: ['safe', 'mature', 'all'],
               description: "Maximum maturity tier to show. Default: 'safe'.",
             },
             mutedWords: {
@@ -394,7 +394,7 @@ export const schemaDict = {
             },
             contentFormat: {
               type: 'string',
-              enum: ['markdown'],
+              knownValues: ['markdown'],
               description: "Content format. Defaults to 'markdown' if omitted.",
             },
             community: {
@@ -460,7 +460,7 @@ export const schemaDict = {
             },
             contentFormat: {
               type: 'string',
-              enum: ['markdown'],
+              knownValues: ['markdown'],
               description: "Content format. Defaults to 'markdown' if omitted.",
             },
             root: {

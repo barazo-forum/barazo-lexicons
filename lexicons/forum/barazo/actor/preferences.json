@@ -13,7 +13,7 @@
         "properties": {
           "maturityLevel": {
             "type": "string",
-            "enum": ["safe", "mature", "all"],
+            "knownValues": ["safe", "mature", "all"],
             "description": "Maximum maturity tier to show. Default: 'safe'."
           },
           "mutedWords": {
