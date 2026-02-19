@@ -1,12 +1,12 @@
-import { defineConfig } from "vitest/config";
+import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   test: {
     globals: true,
-    root: ".",
+    root: '.',
     coverage: {
-      provider: "v8",
-      reporter: ["text", "lcov"],
+      provider: 'v8',
+      reporter: ['text', 'lcov'],
       thresholds: {
         statements: 80,
         branches: 80,
@@ -16,4 +16,4 @@ export default defineConfig({
     },
     testTimeout: 10_000,
   },
-});
+})

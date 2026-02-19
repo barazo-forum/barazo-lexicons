@@ -33,7 +33,10 @@
     "test:compat": "vitest run tests/backward-compatibility.test.ts",
     "test:coverage": "vitest run --coverage",
     "generate": "lex gen-server ./src/generated ./lexicons/**/*.json && node scripts/fixup-generated.js",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "prepare": "husky"
   },
   "dependencies": {
     "@atproto/lexicon": "^0.6.1",
@@ -42,9 +45,14 @@
   },
   "devDependencies": {
     "@atproto/lex-cli": "^0.9.8",
+    "@commitlint/cli": "catalog:",
+    "@commitlint/config-conventional": "catalog:",
     "@types/node": "catalog:",
     "@vitest/coverage-v8": "catalog:",
     "eslint": "catalog:",
+    "husky": "catalog:",
+    "lint-staged": "catalog:",
+    "prettier": "catalog:",
     "typescript": "catalog:",
     "typescript-eslint": "catalog:",
     "vitest": "catalog:"

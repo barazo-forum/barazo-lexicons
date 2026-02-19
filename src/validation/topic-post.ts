@@ -1,8 +1,8 @@
-import { z } from "zod";
-import { selfLabelsSchema } from "./self-labels.js";
+import { z } from 'zod'
+import { selfLabelsSchema } from './self-labels.js'
 
 /** DID format regex (simplified, catches obvious malformed DIDs). */
-const didRegex = /^did:[a-z]+:[a-zA-Z0-9._:%-]+$/;
+const didRegex = /^did:[a-z]+:[a-zA-Z0-9._:%-]+$/
 
 /**
  * Zod schema for forum.barazo.topic.post records.
@@ -16,15 +16,12 @@ const didRegex = /^did:[a-z]+:[a-zA-Z0-9._:%-]+$/;
 export const topicPostSchema = z.object({
   title: z.string().min(1).max(2000),
   content: z.string().min(1).max(100_000),
-  contentFormat: z.literal("markdown").optional(),
+  contentFormat: z.literal('markdown').optional(),
   community: z.string().regex(didRegex),
   category: z.string().min(1).max(640),
-  tags: z
-    .array(z.string().min(1).max(300))
-    .max(5)
-    .optional(),
+  tags: z.array(z.string().min(1).max(300)).max(5).optional(),
   labels: selfLabelsSchema.optional(),
   createdAt: z.iso.datetime(),
-});
+})
 
-export type TopicPostInput = z.input<typeof topicPostSchema>;
+export type TopicPostInput = z.input<typeof topicPostSchema>

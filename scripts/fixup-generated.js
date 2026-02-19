@@ -8,10 +8,10 @@
  * This script fixes the imports and replaces the generated index.ts
  * with a clean re-export file.
  */
-import { readdir, readFile, writeFile } from "node:fs/promises";
-import { join } from "node:path";
+import { readdir, readFile, writeFile } from 'node:fs/promises'
+import { join } from 'node:path'
 
-const GENERATED_DIR = new URL("../src/generated", import.meta.url).pathname;
+const GENERATED_DIR = new URL('../src/generated', import.meta.url).pathname
 
 const REPLACEMENT_INDEX = `/**
  * GENERATED CODE - Re-exports only.
@@ -26,48 +26,45 @@ export * as ForumBarazoInteractionReaction from "./types/forum/barazo/interactio
 export * as ForumBarazoTopicPost from "./types/forum/barazo/topic/post.js";
 export * as ForumBarazoTopicReply from "./types/forum/barazo/topic/reply.js";
 export { schemas, validate } from "./lexicons.js";
-`;
+`
 
 async function getTypeFiles(dir) {
-  const entries = await readdir(dir, { withFileTypes: true, recursive: true });
+  const entries = await readdir(dir, { withFileTypes: true, recursive: true })
   return entries
-    .filter((e) => e.isFile() && e.name.endsWith(".ts"))
-    .map((e) => join(e.parentPath ?? e.path, e.name));
+    .filter((e) => e.isFile() && e.name.endsWith('.ts'))
+    .map((e) => join(e.parentPath ?? e.path, e.name))
 }
 
 async function fixImportExtensions(filePath) {
-  let content = await readFile(filePath, "utf-8");
-  const original = content;
+  let content = await readFile(filePath, 'utf-8')
+  const original = content
 
   // Fix relative imports missing .js extension
   // Match: from './foo' or from '../foo' but NOT from './foo.js' or from '@scope/pkg'
-  content = content.replace(
-    /from '(\.\.?\/[^']+?)(?<!\.js)'/g,
-    "from '$1.js'",
-  );
+  content = content.replace(/from '(\.\.?\/[^']+?)(?<!\.js)'/g, "from '$1.js'")
 
   if (content !== original) {
-    await writeFile(filePath, content);
+    await writeFile(filePath, content)
   }
 }
 
 async function main() {
   // Replace the generated index.ts
-  await writeFile(join(GENERATED_DIR, "index.ts"), REPLACEMENT_INDEX);
+  await writeFile(join(GENERATED_DIR, 'index.ts'), REPLACEMENT_INDEX)
 
   // Fix import extensions in all generated type files
-  const files = await getTypeFiles(join(GENERATED_DIR, "types"));
+  const files = await getTypeFiles(join(GENERATED_DIR, 'types'))
   for (const file of files) {
-    await fixImportExtensions(file);
+    await fixImportExtensions(file)
   }
 
   // Also fix lexicons.ts and util.ts
-  await fixImportExtensions(join(GENERATED_DIR, "lexicons.ts"));
-  await fixImportExtensions(join(GENERATED_DIR, "util.ts"));
+  await fixImportExtensions(join(GENERATED_DIR, 'lexicons.ts'))
+  await fixImportExtensions(join(GENERATED_DIR, 'util.ts'))
 
   console.log(
-    `Fixed ${files.length + 2} generated files (${files.length} types + lexicons.ts + util.ts)`,
-  );
+    `Fixed ${files.length + 2} generated files (${files.length} types + lexicons.ts + util.ts)`
+  )
 }
 
-main();
+main()

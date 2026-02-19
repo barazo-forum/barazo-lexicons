@@ -30,14 +30,14 @@ This package defines the `forum.barazo.*` namespace -- the data contract between
 
 ## Lexicon Schemas
 
-| Lexicon ID | Description | Key |
-|---|---|---|
-| `forum.barazo.topic.post` | Forum topic with title, markdown content, community, category, tags, and optional self-labels | `tid` |
-| `forum.barazo.topic.reply` | Threaded reply to a topic or another reply, with root and parent references | `tid` |
-| `forum.barazo.interaction.reaction` | Reaction to a topic or reply (e.g., like, heart), scoped to a community's configured set | `tid` |
-| `forum.barazo.actor.preferences` | User-level moderation and safety preferences: maturity filter, muted words, blocked/muted accounts, cross-post defaults | `literal:self` |
-| `forum.barazo.authForumAccess` | OAuth permission set granting repo access to all Barazo record collections | -- |
-| `forum.barazo.defs` | Shared type definitions (reserved for future reusable types) | -- |
+| Lexicon ID                          | Description                                                                                                             | Key            |
+| ----------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `forum.barazo.topic.post`           | Forum topic with title, markdown content, community, category, tags, and optional self-labels                           | `tid`          |
+| `forum.barazo.topic.reply`          | Threaded reply to a topic or another reply, with root and parent references                                             | `tid`          |
+| `forum.barazo.interaction.reaction` | Reaction to a topic or reply (e.g., like, heart), scoped to a community's configured set                                | `tid`          |
+| `forum.barazo.actor.preferences`    | User-level moderation and safety preferences: maturity filter, muted words, blocked/muted accounts, cross-post defaults | `literal:self` |
+| `forum.barazo.authForumAccess`      | OAuth permission set granting repo access to all Barazo record collections                                              | --             |
+| `forum.barazo.defs`                 | Shared type definitions (reserved for future reusable types)                                                            | --             |
 
 ---
 
@@ -51,18 +51,18 @@ import {
   ForumBarazoTopicReply,
   ForumBarazoInteractionReaction,
   ForumBarazoActorPreferences,
-} from "@barazo-forum/lexicons";
+} from '@barazo-forum/lexicons'
 
 // Record type
-type Post = ForumBarazoTopicPost.Record;
+type Post = ForumBarazoTopicPost.Record
 
 // Type guard
 if (ForumBarazoTopicPost.isRecord(record)) {
-  console.log(record.title);
+  console.log(record.title)
 }
 
 // Lexicon validation
-const result = ForumBarazoTopicPost.validateRecord(record);
+const result = ForumBarazoTopicPost.validateRecord(record)
 ```
 
 **Zod Validation Schemas:**
@@ -73,9 +73,9 @@ import {
   topicReplySchema,
   reactionSchema,
   actorPreferencesSchema,
-} from "@barazo-forum/lexicons";
+} from '@barazo-forum/lexicons'
 
-const result = topicPostSchema.safeParse(input);
+const result = topicPostSchema.safeParse(input)
 if (result.success) {
   // result.data is typed as TopicPostInput
 }
@@ -84,11 +84,11 @@ if (result.success) {
 **Lexicon ID Constants:**
 
 ```typescript
-import { LEXICON_IDS, ids } from "@barazo-forum/lexicons";
+import { LEXICON_IDS, ids } from '@barazo-forum/lexicons'
 
-LEXICON_IDS.TopicPost       // "forum.barazo.topic.post"
-LEXICON_IDS.TopicReply      // "forum.barazo.topic.reply"
-LEXICON_IDS.Reaction        // "forum.barazo.interaction.reaction"
+LEXICON_IDS.TopicPost // "forum.barazo.topic.post"
+LEXICON_IDS.TopicReply // "forum.barazo.topic.reply"
+LEXICON_IDS.Reaction // "forum.barazo.interaction.reaction"
 LEXICON_IDS.ActorPreferences // "forum.barazo.actor.preferences"
 LEXICON_IDS.AuthForumAccess // "forum.barazo.authForumAccess"
 ```
@@ -96,7 +96,7 @@ LEXICON_IDS.AuthForumAccess // "forum.barazo.authForumAccess"
 **Raw Lexicon Schemas:**
 
 ```typescript
-import { schemas } from "@barazo-forum/lexicons";
+import { schemas } from '@barazo-forum/lexicons'
 // Array of LexiconDoc objects for all forum.barazo.* schemas
 ```
 
@@ -139,12 +139,12 @@ See [CONTRIBUTING.md](https://github.com/barazo-forum/.github/blob/main/CONTRIBU
 
 ## Related Repositories
 
-| Repository | Description | License |
-|------------|-------------|---------|
-| [barazo-api](https://github.com/barazo-forum/barazo-api) | AppView backend (Fastify, firehose, REST API) | AGPL-3.0 |
-| [barazo-web](https://github.com/barazo-forum/barazo-web) | Forum frontend (Next.js, Tailwind) | MIT |
-| [barazo-deploy](https://github.com/barazo-forum/barazo-deploy) | Docker Compose deployment templates | MIT |
-| [barazo-website](https://github.com/barazo-forum/barazo-website) | Marketing + documentation site | MIT |
+| Repository                                                       | Description                                   | License  |
+| ---------------------------------------------------------------- | --------------------------------------------- | -------- |
+| [barazo-api](https://github.com/barazo-forum/barazo-api)         | AppView backend (Fastify, firehose, REST API) | AGPL-3.0 |
+| [barazo-web](https://github.com/barazo-forum/barazo-web)         | Forum frontend (Next.js, Tailwind)            | MIT      |
+| [barazo-deploy](https://github.com/barazo-forum/barazo-deploy)   | Docker Compose deployment templates           | MIT      |
+| [barazo-website](https://github.com/barazo-forum/barazo-website) | Marketing + documentation site                | MIT      |
 
 ---
 
