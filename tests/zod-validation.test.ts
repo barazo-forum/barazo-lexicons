@@ -3,6 +3,7 @@ import {
   topicPostSchema,
   topicReplySchema,
   reactionSchema,
+  voteSchema,
   actorPreferencesSchema,
 } from '../src/validation/index.js'
 
@@ -31,6 +32,13 @@ describe('topicPostSchema', () => {
       ...validPost,
       contentFormat: 'markdown' as const,
       tags: ['test', 'poc'],
+      facets: [
+        {
+          index: { byteStart: 0, byteEnd: 5 },
+          features: [{ $type: 'app.bsky.richtext.facet#mention', did: 'did:plc:abc123' }],
+        },
+      ],
+      langs: ['en', 'nl'],
       labels: { values: [{ val: 'sexual' }] },
     }
     expect(topicPostSchema.safeParse(full).success).toBe(true)
@@ -85,6 +93,37 @@ describe('topicPostSchema', () => {
 
   it('rejects invalid contentFormat', () => {
     expect(topicPostSchema.safeParse({ ...validPost, contentFormat: 'html' }).success).toBe(false)
+  })
+
+  it('accepts post with facets', () => {
+    const withFacets = {
+      ...validPost,
+      facets: [
+        {
+          index: { byteStart: 0, byteEnd: 10 },
+          features: [{ $type: 'app.bsky.richtext.facet#link', uri: 'https://example.com' }],
+        },
+      ],
+    }
+    expect(topicPostSchema.safeParse(withFacets).success).toBe(true)
+  })
+
+  it('rejects facets with invalid byteSlice', () => {
+    const badFacets = {
+      ...validPost,
+      facets: [{ index: { byteStart: -1, byteEnd: 5 }, features: [{ $type: 'test' }] }],
+    }
+    expect(topicPostSchema.safeParse(badFacets).success).toBe(false)
+  })
+
+  it('accepts post with langs', () => {
+    const withLangs = { ...validPost, langs: ['en', 'nl'] }
+    expect(topicPostSchema.safeParse(withLangs).success).toBe(true)
+  })
+
+  it('rejects more than 3 langs', () => {
+    const tooManyLangs = { ...validPost, langs: ['en', 'nl', 'de', 'fr'] }
+    expect(topicPostSchema.safeParse(tooManyLangs).success).toBe(false)
   })
 
   it('rejects labels with more than 10 values', () => {
@@ -169,6 +208,45 @@ describe('reactionSchema', () => {
         subject: { uri: 'not-an-at-uri', cid: 'test' },
       }).success
     ).toBe(false)
+  })
+})
+
+describe('voteSchema', () => {
+  const validVote = {
+    subject: VALID_STRONG_REF,
+    direction: 'up',
+    community: VALID_DID,
+    createdAt: VALID_DATETIME,
+  }
+
+  it('accepts a valid vote', () => {
+    expect(voteSchema.safeParse(validVote).success).toBe(true)
+  })
+
+  it('accepts custom direction values (knownValues is open)', () => {
+    expect(voteSchema.safeParse({ ...validVote, direction: 'down' }).success).toBe(true)
+  })
+
+  it('rejects empty direction string', () => {
+    expect(voteSchema.safeParse({ ...validVote, direction: '' }).success).toBe(false)
+  })
+
+  it('rejects invalid subject (not a strongRef)', () => {
+    expect(
+      voteSchema.safeParse({
+        ...validVote,
+        subject: { uri: 'not-an-at-uri', cid: 'test' },
+      }).success
+    ).toBe(false)
+  })
+
+  it('rejects invalid community DID', () => {
+    expect(voteSchema.safeParse({ ...validVote, community: 'not-a-did' }).success).toBe(false)
+  })
+
+  it('rejects missing required fields', () => {
+    expect(voteSchema.safeParse({}).success).toBe(false)
+    expect(voteSchema.safeParse({ subject: VALID_STRONG_REF }).success).toBe(false)
   })
 })
 

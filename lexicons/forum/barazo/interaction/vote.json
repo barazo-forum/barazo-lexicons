@@ -1,0 +1,38 @@
+{
+  "lexicon": 1,
+  "id": "forum.barazo.interaction.vote",
+  "description": "A directional vote on a forum topic or reply. Votes are quantitative (ranking); reactions are expressive (emoji-style).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Record containing a directional vote on a forum topic or reply.",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["subject", "direction", "community", "createdAt"],
+        "properties": {
+          "subject": {
+            "type": "ref",
+            "ref": "com.atproto.repo.strongRef",
+            "description": "The topic or reply being voted on."
+          },
+          "direction": {
+            "type": "string",
+            "knownValues": ["up"],
+            "description": "Vote direction. Start upvote-only; 'down' can be added later without breaking change."
+          },
+          "community": {
+            "type": "string",
+            "format": "did",
+            "description": "DID of the community where this vote was cast. Immutable origin identifier."
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "Client-declared timestamp when this vote was originally created."
+          }
+        }
+      }
+    }
+  }
+}

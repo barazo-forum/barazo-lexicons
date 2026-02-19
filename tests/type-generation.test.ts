@@ -3,6 +3,7 @@ import {
   ForumBarazoTopicPost,
   ForumBarazoTopicReply,
   ForumBarazoInteractionReaction,
+  ForumBarazoInteractionVote,
   ForumBarazoActorPreferences,
   LEXICON_IDS,
   schemas,
@@ -25,6 +26,11 @@ describe('generated type exports', () => {
     expect(ForumBarazoInteractionReaction.validateRecord).toBeTypeOf('function')
   })
 
+  it('exports ForumBarazoInteractionVote with Record type and validators', () => {
+    expect(ForumBarazoInteractionVote.isRecord).toBeTypeOf('function')
+    expect(ForumBarazoInteractionVote.validateRecord).toBeTypeOf('function')
+  })
+
   it('exports ForumBarazoActorPreferences with Record type and validators', () => {
     expect(ForumBarazoActorPreferences.isRecord).toBeTypeOf('function')
     expect(ForumBarazoActorPreferences.validateRecord).toBeTypeOf('function')
@@ -42,6 +48,10 @@ describe('LEXICON_IDS constants', () => {
 
   it('has correct Reaction ID', () => {
     expect(LEXICON_IDS.Reaction).toBe('forum.barazo.interaction.reaction')
+  })
+
+  it('has correct Vote ID', () => {
+    expect(LEXICON_IDS.Vote).toBe('forum.barazo.interaction.vote')
   })
 
   it('has correct ActorPreferences ID', () => {
@@ -64,6 +74,7 @@ describe('generated schemas', () => {
     expect(schemaIds).toContain('forum.barazo.topic.post')
     expect(schemaIds).toContain('forum.barazo.topic.reply')
     expect(schemaIds).toContain('forum.barazo.interaction.reaction')
+    expect(schemaIds).toContain('forum.barazo.interaction.vote')
     expect(schemaIds).toContain('forum.barazo.actor.preferences')
     expect(schemaIds).toContain('forum.barazo.authForumAccess')
   })
@@ -80,6 +91,10 @@ describe('generated ids map', () => {
 
   it('maps ForumBarazoInteractionReaction correctly', () => {
     expect(ids.ForumBarazoInteractionReaction).toBe('forum.barazo.interaction.reaction')
+  })
+
+  it('maps ForumBarazoInteractionVote correctly', () => {
+    expect(ids.ForumBarazoInteractionVote).toBe('forum.barazo.interaction.vote')
   })
 
   it('maps ForumBarazoActorPreferences correctly', () => {

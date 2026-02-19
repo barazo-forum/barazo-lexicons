@@ -10,6 +10,7 @@ import {
   type OmitKey,
 } from '../../../../util.js'
 import type * as ComAtprotoRepoStrongRef from '../../../com/atproto/repo/strongRef.js'
+import type * as AppBskyRichtextFacet from '../../../app/bsky/richtext/facet.js'
 import type * as ComAtprotoLabelDefs from '../../../com/atproto/label/defs.js'
 
 const is$typed = _is$typed,
@@ -26,6 +27,10 @@ export interface Main {
   parent: ComAtprotoRepoStrongRef.Main
   /** DID of the community where this reply was created. Immutable origin identifier. */
   community: string
+  /** Annotations of text (mentions, URLs, hashtags, etc). */
+  facets?: AppBskyRichtextFacet.Main[]
+  /** BCP 47 language tags indicating the primary language(s) of the content. */
+  langs?: string[]
   labels?: $Typed<ComAtprotoLabelDefs.SelfLabels> | { $type: string }
   /** Client-declared timestamp when this reply was originally created. */
   createdAt: string

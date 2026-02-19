@@ -1,6 +1,7 @@
 export { topicPostSchema, type TopicPostInput } from './topic-post.js'
 export { topicReplySchema, type TopicReplyInput } from './topic-reply.js'
 export { reactionSchema, type ReactionInput } from './reaction.js'
+export { voteSchema, type VoteInput } from './vote.js'
 export {
   actorPreferencesSchema,
   crossPostConfigSchema,
@@ -8,3 +9,4 @@ export {
 } from './actor-preferences.js'
 export { strongRefSchema } from './strong-ref.js'
 export { selfLabelsSchema, selfLabelSchema } from './self-labels.js'
+export { facetSchema } from './facet.js'

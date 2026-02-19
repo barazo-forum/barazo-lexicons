@@ -24,12 +24,14 @@ import {
   topicPostSchema,
   topicReplySchema,
   reactionSchema,
+  voteSchema,
   actorPreferencesSchema,
 } from '../src/validation/index.js'
 import {
   ForumBarazoTopicPost,
   ForumBarazoTopicReply,
   ForumBarazoInteractionReaction,
+  ForumBarazoInteractionVote,
   ForumBarazoActorPreferences,
 } from '../src/generated/index.js'
 import {
@@ -39,6 +41,8 @@ import {
   topicReplyFull,
   reactionMinimal,
   reactionFull,
+  voteMinimal,
+  voteFull,
   actorPreferencesMinimal,
   actorPreferencesFull,
 } from './fixtures/baseline-records.js'
@@ -86,6 +90,8 @@ const SCHEMA_SNAPSHOTS = {
       'community',
       'category',
       'tags',
+      'facets',
+      'langs',
       'labels',
       'createdAt',
     ],
@@ -98,6 +104,8 @@ const SCHEMA_SNAPSHOTS = {
       'root',
       'parent',
       'community',
+      'facets',
+      'langs',
       'labels',
       'createdAt',
     ],
@@ -105,6 +113,10 @@ const SCHEMA_SNAPSHOTS = {
   'forum.barazo.interaction.reaction': {
     requiredFields: ['subject', 'type', 'community', 'createdAt'],
     allProperties: ['subject', 'type', 'community', 'createdAt'],
+  },
+  'forum.barazo.interaction.vote': {
+    requiredFields: ['subject', 'direction', 'community', 'createdAt'],
+    allProperties: ['subject', 'direction', 'community', 'createdAt'],
   },
   'forum.barazo.actor.preferences': {
     requiredFields: ['maturityLevel', 'updatedAt'],
@@ -154,6 +166,18 @@ describe('backward compatibility: Zod validation of baseline records', () => {
 
     it('validates full baseline record', () => {
       const result = reactionSchema.safeParse(reactionFull)
+      expect(result.success).toBe(true)
+    })
+  })
+
+  describe('forum.barazo.interaction.vote', () => {
+    it('validates minimal baseline record', () => {
+      const result = voteSchema.safeParse(voteMinimal)
+      expect(result.success).toBe(true)
+    })
+
+    it('validates full baseline record', () => {
+      const result = voteSchema.safeParse(voteFull)
       expect(result.success).toBe(true)
     })
   })
@@ -222,6 +246,22 @@ describe('backward compatibility: lexicon validation of baseline records', () =>
     })
   })
 
+  describe('forum.barazo.interaction.vote', () => {
+    it('validates minimal baseline record', () => {
+      const result = ForumBarazoInteractionVote.validateRecord(
+        withType(voteMinimal, 'forum.barazo.interaction.vote')
+      )
+      expect(result.success).toBe(true)
+    })
+
+    it('validates full baseline record', () => {
+      const result = ForumBarazoInteractionVote.validateRecord(
+        withType(voteFull, 'forum.barazo.interaction.vote')
+      )
+      expect(result.success).toBe(true)
+    })
+  })
+
   describe('forum.barazo.actor.preferences', () => {
     it('validates minimal baseline record', () => {
       const result = ForumBarazoActorPreferences.validateRecord(
@@ -263,6 +303,11 @@ describe('backward compatibility: schema structural invariants', () => {
       name: 'forum.barazo.interaction.reaction',
       path: 'forum/barazo/interaction/reaction.json',
       snapshot: SCHEMA_SNAPSHOTS['forum.barazo.interaction.reaction'],
+    },
+    {
+      name: 'forum.barazo.interaction.vote',
+      path: 'forum/barazo/interaction/vote.json',
+      snapshot: SCHEMA_SNAPSHOTS['forum.barazo.interaction.vote'],
     },
     {
       name: 'forum.barazo.actor.preferences',
@@ -359,6 +404,12 @@ describe('backward compatibility: records with extra unknown fields', () => {
     expect(result.success).toBe(true)
   })
 
+  it('lexicon validator accepts vote with extra fields', () => {
+    const record = withType({ ...voteMinimal, futureField: 'new' }, 'forum.barazo.interaction.vote')
+    const result = ForumBarazoInteractionVote.validateRecord(record)
+    expect(result.success).toBe(true)
+  })
+
   it('lexicon validator accepts actor.preferences with extra fields', () => {
     const record = withType(
       { ...actorPreferencesMinimal, futureField: { nested: true } },
@@ -383,6 +434,8 @@ describe('backward compatibility: field type stability', () => {
         community: 'string',
         category: 'string',
         tags: 'array',
+        facets: 'array',
+        langs: 'array',
         labels: 'union',
         createdAt: 'string',
       },
@@ -395,6 +448,8 @@ describe('backward compatibility: field type stability', () => {
         root: 'ref',
         parent: 'ref',
         community: 'string',
+        facets: 'array',
+        langs: 'array',
         labels: 'union',
         createdAt: 'string',
       },
@@ -404,6 +459,15 @@ describe('backward compatibility: field type stability', () => {
       types: {
         subject: 'ref',
         type: 'string',
+        community: 'string',
+        createdAt: 'string',
+      },
+    },
+    'forum.barazo.interaction.vote': {
+      path: 'forum/barazo/interaction/vote.json',
+      types: {
+        subject: 'ref',
+        direction: 'string',
         community: 'string',
         createdAt: 'string',
       },
