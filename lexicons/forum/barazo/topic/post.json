@@ -26,7 +26,7 @@
           },
           "contentFormat": {
             "type": "string",
-            "enum": ["markdown"],
+            "knownValues": ["markdown"],
             "description": "Content format. Defaults to 'markdown' if omitted."
           },
           "community": {

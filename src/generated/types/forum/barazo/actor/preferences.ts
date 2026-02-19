@@ -17,7 +17,7 @@ const id = 'forum.barazo.actor.preferences'
 export interface Main {
   $type: 'forum.barazo.actor.preferences'
   /** Maximum maturity tier to show. Default: 'safe'. */
-  maturityLevel: 'safe' | 'mature' | 'all'
+  maturityLevel: 'safe' | 'mature' | 'all' | (string & {})
   /** Global muted words (apply to all communities). */
   mutedWords?: string[]
   /** Blocked accounts (content hidden everywhere). */
