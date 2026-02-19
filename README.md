@@ -148,6 +148,16 @@ See [CONTRIBUTING.md](https://github.com/barazo-forum/.github/blob/main/CONTRIBU
 
 ---
 
+## AT Protocol Lexicon Resources
+
+| Resource                                                                  | Description                                                                                                                                                                              |
+| ------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [lexicon.garden](https://lexicon.garden/)                                 | Discovery platform for AT Protocol lexicons -- browse, search, and explore 900+ schemas across the ecosystem. Essential for checking namespace overlap before defining new record types. |
+| [lexicon-community/lexicon](https://github.com/lexicon-community/lexicon) | Shared community lexicons (interaction.like, bookmarks, etc.) for cross-app interoperability.                                                                                            |
+| [AT Protocol Lexicon Spec](https://atproto.com/specs/lexicon)             | Official specification for the Lexicon schema language.                                                                                                                                  |
+
+---
+
 ## Community
 
 - **Website:** [barazo.forum](https://barazo.forum)
