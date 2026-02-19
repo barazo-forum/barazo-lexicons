@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import { selfLabelsSchema } from './self-labels.js'
+import { facetSchema } from './facet.js'
 
 /** DID format regex (simplified, catches obvious malformed DIDs). */
 const didRegex = /^did:[a-z]+:[a-zA-Z0-9._:%-]+$/
@@ -20,6 +21,8 @@ export const topicPostSchema = z.object({
   community: z.string().regex(didRegex),
   category: z.string().min(1).max(640),
   tags: z.array(z.string().min(1).max(300)).max(5).optional(),
+  facets: z.array(facetSchema).optional(),
+  langs: z.array(z.string().min(1)).max(3).optional(),
   labels: selfLabelsSchema.optional(),
   createdAt: z.iso.datetime(),
 })

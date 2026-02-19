@@ -116,6 +116,33 @@ describe('forum.barazo.topic.post lexicon', () => {
     const tags = props['tags'] as Record<string, unknown>
     expect(tags['maxLength']).toBe(5)
   })
+
+  it('has optional facets array referencing app.bsky.richtext.facet', () => {
+    const defs = schema['defs'] as Record<string, unknown>
+    const main = defs['main'] as Record<string, unknown>
+    const record = main['record'] as Record<string, unknown>
+    const required = record['required'] as string[]
+    expect(required).not.toContain('facets')
+    const props = record['properties'] as Record<string, unknown>
+    const facets = props['facets'] as Record<string, unknown>
+    expect(facets['type']).toBe('array')
+    const items = facets['items'] as Record<string, unknown>
+    expect(items['ref']).toBe('app.bsky.richtext.facet')
+  })
+
+  it('has optional langs array with max 3 language items', () => {
+    const defs = schema['defs'] as Record<string, unknown>
+    const main = defs['main'] as Record<string, unknown>
+    const record = main['record'] as Record<string, unknown>
+    const required = record['required'] as string[]
+    expect(required).not.toContain('langs')
+    const props = record['properties'] as Record<string, unknown>
+    const langs = props['langs'] as Record<string, unknown>
+    expect(langs['type']).toBe('array')
+    expect(langs['maxLength']).toBe(3)
+    const items = langs['items'] as Record<string, unknown>
+    expect(items['format']).toBe('language')
+  })
 })
 
 describe('forum.barazo.topic.reply lexicon', () => {
@@ -148,6 +175,31 @@ describe('forum.barazo.topic.reply lexicon', () => {
     expect(parent['type']).toBe('ref')
     expect(parent['ref']).toBe('com.atproto.repo.strongRef')
   })
+
+  it('has optional facets array referencing app.bsky.richtext.facet', () => {
+    const defs = schema['defs'] as Record<string, unknown>
+    const main = defs['main'] as Record<string, unknown>
+    const record = main['record'] as Record<string, unknown>
+    const required = record['required'] as string[]
+    expect(required).not.toContain('facets')
+    const props = record['properties'] as Record<string, unknown>
+    const facets = props['facets'] as Record<string, unknown>
+    expect(facets['type']).toBe('array')
+    const items = facets['items'] as Record<string, unknown>
+    expect(items['ref']).toBe('app.bsky.richtext.facet')
+  })
+
+  it('has optional langs array with max 3 language items', () => {
+    const defs = schema['defs'] as Record<string, unknown>
+    const main = defs['main'] as Record<string, unknown>
+    const record = main['record'] as Record<string, unknown>
+    const required = record['required'] as string[]
+    expect(required).not.toContain('langs')
+    const props = record['properties'] as Record<string, unknown>
+    const langs = props['langs'] as Record<string, unknown>
+    expect(langs['type']).toBe('array')
+    expect(langs['maxLength']).toBe(3)
+  })
 })
 
 describe('forum.barazo.interaction.reaction lexicon', () => {
@@ -177,6 +229,64 @@ describe('forum.barazo.interaction.reaction lexicon', () => {
     const subject = props['subject'] as Record<string, unknown>
     expect(subject['type']).toBe('ref')
     expect(subject['ref']).toBe('com.atproto.repo.strongRef')
+  })
+})
+
+describe('forum.barazo.interaction.vote lexicon', () => {
+  let schema: Record<string, unknown>
+
+  it('loads successfully', async () => {
+    schema = (await loadJson(join(LEXICONS_DIR, 'interaction/vote.json'))) as Record<
+      string,
+      unknown
+    >
+    expect(schema['id']).toBe('forum.barazo.interaction.vote')
+  })
+
+  it('defines a record with key type tid', () => {
+    const defs = schema['defs'] as Record<string, unknown>
+    const main = defs['main'] as Record<string, unknown>
+    expect(main['type']).toBe('record')
+    expect(main['key']).toBe('tid')
+  })
+
+  it('has required fields: subject, direction, community, createdAt', () => {
+    const defs = schema['defs'] as Record<string, unknown>
+    const main = defs['main'] as Record<string, unknown>
+    const record = main['record'] as Record<string, unknown>
+    const required = record['required'] as string[]
+    expect(required).toEqual(
+      expect.arrayContaining(['subject', 'direction', 'community', 'createdAt'])
+    )
+  })
+
+  it('subject uses strongRef', () => {
+    const defs = schema['defs'] as Record<string, unknown>
+    const main = defs['main'] as Record<string, unknown>
+    const record = main['record'] as Record<string, unknown>
+    const props = record['properties'] as Record<string, unknown>
+    const subject = props['subject'] as Record<string, unknown>
+    expect(subject['type']).toBe('ref')
+    expect(subject['ref']).toBe('com.atproto.repo.strongRef')
+  })
+
+  it('direction uses knownValues with up', () => {
+    const defs = schema['defs'] as Record<string, unknown>
+    const main = defs['main'] as Record<string, unknown>
+    const record = main['record'] as Record<string, unknown>
+    const props = record['properties'] as Record<string, unknown>
+    const direction = props['direction'] as Record<string, unknown>
+    expect(direction['knownValues']).toEqual(['up'])
+  })
+
+  it('community field uses DID format', () => {
+    const defs = schema['defs'] as Record<string, unknown>
+    const main = defs['main'] as Record<string, unknown>
+    const record = main['record'] as Record<string, unknown>
+    const props = record['properties'] as Record<string, unknown>
+    const community = props['community'] as Record<string, unknown>
+    expect(community['type']).toBe('string')
+    expect(community['format']).toBe('did')
   })
 })
 
@@ -220,6 +330,7 @@ describe('forum.barazo.authForumAccess lexicon', () => {
     expect(collections).toContain('forum.barazo.topic.post')
     expect(collections).toContain('forum.barazo.topic.reply')
     expect(collections).toContain('forum.barazo.interaction.reaction')
+    expect(collections).toContain('forum.barazo.interaction.vote')
     expect(collections).toContain('forum.barazo.actor.preferences')
   })
 })

@@ -37,6 +37,23 @@
             "format": "did",
             "description": "DID of the community where this reply was created. Immutable origin identifier."
           },
+          "facets": {
+            "type": "array",
+            "description": "Annotations of text (mentions, URLs, hashtags, etc).",
+            "items": {
+              "type": "ref",
+              "ref": "app.bsky.richtext.facet"
+            }
+          },
+          "langs": {
+            "type": "array",
+            "maxLength": 3,
+            "items": {
+              "type": "string",
+              "format": "language"
+            },
+            "description": "BCP 47 language tags indicating the primary language(s) of the content."
+          },
           "labels": {
             "type": "union",
             "description": "Self-label values for content maturity.",

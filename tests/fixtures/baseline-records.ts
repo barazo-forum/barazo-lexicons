@@ -82,6 +82,18 @@ export const reactionMinimal = {
 // Reaction has no optional fields beyond the required ones
 export const reactionFull = { ...reactionMinimal }
 
+// ── interaction.vote ───────────────────────────────────────────
+
+export const voteMinimal = {
+  subject: VALID_STRONG_REF,
+  direction: 'up',
+  community: VALID_DID,
+  createdAt: VALID_DATETIME,
+}
+
+// Vote has no optional fields beyond the required ones
+export const voteFull = { ...voteMinimal }
+
 // ── actor.preferences ───────────────────────────────────────────────
 
 export const actorPreferencesMinimal = {

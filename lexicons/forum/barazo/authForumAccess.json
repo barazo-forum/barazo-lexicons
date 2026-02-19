@@ -15,6 +15,7 @@
             "forum.barazo.topic.post",
             "forum.barazo.topic.reply",
             "forum.barazo.interaction.reaction",
+            "forum.barazo.interaction.vote",
             "forum.barazo.actor.preferences"
           ]
         }

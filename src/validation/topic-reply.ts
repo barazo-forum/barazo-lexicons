@@ -1,6 +1,7 @@
 import { z } from 'zod'
 import { strongRefSchema } from './strong-ref.js'
 import { selfLabelsSchema } from './self-labels.js'
+import { facetSchema } from './facet.js'
 
 const didRegex = /^did:[a-z]+:[a-zA-Z0-9._:%-]+$/
 
@@ -15,6 +16,8 @@ export const topicReplySchema = z.object({
   root: strongRefSchema,
   parent: strongRefSchema,
   community: z.string().regex(didRegex),
+  facets: z.array(facetSchema).optional(),
+  langs: z.array(z.string().min(1)).max(3).optional(),
   labels: selfLabelsSchema.optional(),
   createdAt: z.iso.datetime(),
 })

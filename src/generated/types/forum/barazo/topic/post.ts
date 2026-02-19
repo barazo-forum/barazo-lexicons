@@ -9,6 +9,7 @@ import {
   is$typed as _is$typed,
   type OmitKey,
 } from '../../../../util.js'
+import type * as AppBskyRichtextFacet from '../../../app/bsky/richtext/facet.js'
 import type * as ComAtprotoLabelDefs from '../../../com/atproto/label/defs.js'
 
 const is$typed = _is$typed,
@@ -29,6 +30,10 @@ export interface Main {
   category: string
   /** Topic tags. Lowercase alphanumeric + hyphens. */
   tags?: string[]
+  /** Annotations of text (mentions, URLs, hashtags, etc). */
+  facets?: AppBskyRichtextFacet.Main[]
+  /** BCP 47 language tags indicating the primary language(s) of the content. */
+  langs?: string[]
   labels?: $Typed<ComAtprotoLabelDefs.SelfLabels> | { $type: string }
   /** Client-declared timestamp when this post was originally created. */
   createdAt: string

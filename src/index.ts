@@ -12,6 +12,7 @@ export {
   ForumBarazoTopicPost,
   ForumBarazoTopicReply,
   ForumBarazoInteractionReaction,
+  ForumBarazoInteractionVote,
   ForumBarazoActorPreferences,
   ComAtprotoRepoStrongRef,
   ComAtprotoLabelDefs,
@@ -26,14 +27,17 @@ export {
   topicPostSchema,
   topicReplySchema,
   reactionSchema,
+  voteSchema,
   actorPreferencesSchema,
   crossPostConfigSchema,
   strongRefSchema,
   selfLabelsSchema,
   selfLabelSchema,
+  facetSchema,
   type TopicPostInput,
   type TopicReplyInput,
   type ReactionInput,
+  type VoteInput,
   type ActorPreferencesInput,
 } from './validation/index.js'
 
@@ -42,6 +46,7 @@ export const LEXICON_IDS = {
   TopicPost: 'forum.barazo.topic.post',
   TopicReply: 'forum.barazo.topic.reply',
   Reaction: 'forum.barazo.interaction.reaction',
+  Vote: 'forum.barazo.interaction.vote',
   ActorPreferences: 'forum.barazo.actor.preferences',
   AuthForumAccess: 'forum.barazo.authForumAccess',
 } as const

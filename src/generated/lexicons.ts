@@ -10,6 +10,87 @@ import {
 import { type $Typed, is$typed, maybe$typed } from './util.js'
 
 export const schemaDict = {
+  AppBskyRichtextFacet: {
+    lexicon: 1,
+    id: 'app.bsky.richtext.facet',
+    defs: {
+      main: {
+        type: 'object',
+        description: 'Annotation of a sub-string within rich text.',
+        required: ['index', 'features'],
+        properties: {
+          index: {
+            type: 'ref',
+            ref: 'lex:app.bsky.richtext.facet#byteSlice',
+          },
+          features: {
+            type: 'array',
+            items: {
+              type: 'union',
+              refs: [
+                'lex:app.bsky.richtext.facet#mention',
+                'lex:app.bsky.richtext.facet#link',
+                'lex:app.bsky.richtext.facet#tag',
+              ],
+            },
+          },
+        },
+      },
+      mention: {
+        type: 'object',
+        description:
+          "Facet feature for mention of another account. The text is usually a handle, including a '@' prefix, but the facet reference is a DID.",
+        required: ['did'],
+        properties: {
+          did: {
+            type: 'string',
+            format: 'did',
+          },
+        },
+      },
+      link: {
+        type: 'object',
+        description:
+          'Facet feature for a URL. The text URL may have been simplified or truncated, but the facet reference should be a complete URL.',
+        required: ['uri'],
+        properties: {
+          uri: {
+            type: 'string',
+            format: 'uri',
+          },
+        },
+      },
+      tag: {
+        type: 'object',
+        description:
+          "Facet feature for a hashtag. The text usually includes a '#' prefix, but the facet reference should not (except in the case of 'double hash tags').",
+        required: ['tag'],
+        properties: {
+          tag: {
+            type: 'string',
+            maxLength: 640,
+            maxGraphemes: 64,
+          },
+        },
+      },
+      byteSlice: {
+        type: 'object',
+        description:
+          'Specifies the sub-string range a facet feature applies to. Start index is inclusive, end index is exclusive. Indices are zero-indexed, counting bytes of the UTF-8 encoded text.',
+        required: ['byteStart', 'byteEnd'],
+        properties: {
+          byteStart: {
+            type: 'integer',
+            minimum: 0,
+          },
+          byteEnd: {
+            type: 'integer',
+            minimum: 0,
+          },
+        },
+      },
+    },
+  },
   ComAtprotoLabelDefs: {
     lexicon: 1,
     id: 'com.atproto.label.defs',
@@ -210,6 +291,33 @@ export const schemaDict = {
       },
     },
   },
+  ForumBarazoAuthForumAccess: {
+    lexicon: 1,
+    id: 'forum.barazo.authForumAccess',
+    description:
+      'Permission set for Barazo forum access. Grants ability to create topics, replies, and reactions, and manage user preferences.',
+    defs: {
+      main: {
+        type: 'permission-set',
+        title: 'Barazo Forum',
+        detail:
+          'Create topics, replies, and reactions. Manage your forum preferences.',
+        permissions: [
+          {
+            type: 'permission',
+            resource: 'repo',
+            collection: [
+              'forum.barazo.topic.post',
+              'forum.barazo.topic.reply',
+              'forum.barazo.interaction.reaction',
+              'forum.barazo.interaction.vote',
+              'forum.barazo.actor.preferences',
+            ],
+          },
+        ],
+      },
+    },
+  },
   ForumBarazoActorPreferences: {
     lexicon: 1,
     id: 'forum.barazo.actor.preferences',
@@ -288,32 +396,6 @@ export const schemaDict = {
       },
     },
   },
-  ForumBarazoAuthForumAccess: {
-    lexicon: 1,
-    id: 'forum.barazo.authForumAccess',
-    description:
-      'Permission set for Barazo forum access. Grants ability to create topics, replies, and reactions, and manage user preferences.',
-    defs: {
-      main: {
-        type: 'permission-set',
-        title: 'Barazo Forum',
-        detail:
-          'Create topics, replies, and reactions. Manage your forum preferences.',
-        permissions: [
-          {
-            type: 'permission',
-            resource: 'repo',
-            collection: [
-              'forum.barazo.topic.post',
-              'forum.barazo.topic.reply',
-              'forum.barazo.interaction.reaction',
-              'forum.barazo.actor.preferences',
-            ],
-          },
-        ],
-      },
-    },
-  },
   ForumBarazoDefs: {
     lexicon: 1,
     id: 'forum.barazo.defs',
@@ -359,6 +441,49 @@ export const schemaDict = {
               format: 'datetime',
               description:
                 'Client-declared timestamp when this reaction was originally created.',
+            },
+          },
+        },
+      },
+    },
+  },
+  ForumBarazoInteractionVote: {
+    lexicon: 1,
+    id: 'forum.barazo.interaction.vote',
+    description:
+      'A directional vote on a forum topic or reply. Votes are quantitative (ranking); reactions are expressive (emoji-style).',
+    defs: {
+      main: {
+        type: 'record',
+        description:
+          'Record containing a directional vote on a forum topic or reply.',
+        key: 'tid',
+        record: {
+          type: 'object',
+          required: ['subject', 'direction', 'community', 'createdAt'],
+          properties: {
+            subject: {
+              type: 'ref',
+              ref: 'lex:com.atproto.repo.strongRef',
+              description: 'The topic or reply being voted on.',
+            },
+            direction: {
+              type: 'string',
+              knownValues: ['up'],
+              description:
+                "Vote direction. Start upvote-only; 'down' can be added later without breaking change.",
+            },
+            community: {
+              type: 'string',
+              format: 'did',
+              description:
+                'DID of the community where this vote was cast. Immutable origin identifier.',
+            },
+            createdAt: {
+              type: 'string',
+              format: 'datetime',
+              description:
+                'Client-declared timestamp when this vote was originally created.',
             },
           },
         },
@@ -419,6 +544,25 @@ export const schemaDict = {
                 maxGraphemes: 30,
               },
               description: 'Topic tags. Lowercase alphanumeric + hyphens.',
+            },
+            facets: {
+              type: 'array',
+              description:
+                'Annotations of text (mentions, URLs, hashtags, etc).',
+              items: {
+                type: 'ref',
+                ref: 'lex:app.bsky.richtext.facet',
+              },
+            },
+            langs: {
+              type: 'array',
+              maxLength: 3,
+              items: {
+                type: 'string',
+                format: 'language',
+              },
+              description:
+                'BCP 47 language tags indicating the primary language(s) of the content.',
             },
             labels: {
               type: 'union',
@@ -481,6 +625,25 @@ export const schemaDict = {
               description:
                 'DID of the community where this reply was created. Immutable origin identifier.',
             },
+            facets: {
+              type: 'array',
+              description:
+                'Annotations of text (mentions, URLs, hashtags, etc).',
+              items: {
+                type: 'ref',
+                ref: 'lex:app.bsky.richtext.facet',
+              },
+            },
+            langs: {
+              type: 'array',
+              maxLength: 3,
+              items: {
+                type: 'string',
+                format: 'language',
+              },
+              description:
+                'BCP 47 language tags indicating the primary language(s) of the content.',
+            },
             labels: {
               type: 'union',
               description: 'Self-label values for content maturity.',
@@ -530,12 +693,14 @@ export function validate(
 }
 
 export const ids = {
+  AppBskyRichtextFacet: 'app.bsky.richtext.facet',
   ComAtprotoLabelDefs: 'com.atproto.label.defs',
   ComAtprotoRepoStrongRef: 'com.atproto.repo.strongRef',
   ForumBarazoActorPreferences: 'forum.barazo.actor.preferences',
   ForumBarazoAuthForumAccess: 'forum.barazo.authForumAccess',
   ForumBarazoDefs: 'forum.barazo.defs',
   ForumBarazoInteractionReaction: 'forum.barazo.interaction.reaction',
+  ForumBarazoInteractionVote: 'forum.barazo.interaction.vote',
   ForumBarazoTopicPost: 'forum.barazo.topic.post',
   ForumBarazoTopicReply: 'forum.barazo.topic.reply',
 } as const
