@@ -1,6 +1,5 @@
 import { z } from 'zod'
-
-const didRegex = /^did:[a-z]+:[a-zA-Z0-9._:%-]+$/
+import { didRegex } from './patterns.js'
 
 /** Cross-post configuration for new topics. */
 export const crossPostConfigSchema = z.object({

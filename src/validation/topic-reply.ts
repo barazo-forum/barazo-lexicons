@@ -2,8 +2,7 @@ import { z } from 'zod'
 import { strongRefSchema } from './strong-ref.js'
 import { selfLabelsSchema } from './self-labels.js'
 import { facetSchema } from './facet.js'
-
-const didRegex = /^did:[a-z]+:[a-zA-Z0-9._:%-]+$/
+import { didRegex } from './patterns.js'
 
 /**
  * Zod schema for forum.barazo.topic.reply records.
