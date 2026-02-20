@@ -1,8 +1,21 @@
-import baseConfig from '../eslint.config.base.js'
 import tseslint from 'typescript-eslint'
 
 export default tseslint.config(
-  ...baseConfig,
+  ...tseslint.configs.strictTypeChecked,
+  {
+    rules: {
+      'no-console': 'error',
+      '@typescript-eslint/no-explicit-any': 'error',
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
+      ],
+      '@typescript-eslint/consistent-type-imports': ['error', { prefer: 'type-imports' }],
+    },
+  },
+  {
+    ignores: ['dist/', 'node_modules/', '*.config.*'],
+  },
   {
     languageOptions: {
       parserOptions: {
@@ -13,5 +26,7 @@ export default tseslint.config(
       },
     },
   },
-  { ignores: ['src/generated/**'] }
+  {
+    ignores: ['src/generated/**'],
+  }
 )
