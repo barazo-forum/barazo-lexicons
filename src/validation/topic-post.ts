@@ -1,9 +1,7 @@
 import { z } from 'zod'
 import { selfLabelsSchema } from './self-labels.js'
 import { facetSchema } from './facet.js'
-
-/** DID format regex (simplified, catches obvious malformed DIDs). */
-const didRegex = /^did:[a-z]+:[a-zA-Z0-9._:%-]+$/
+import { didRegex } from './patterns.js'
 
 /**
  * Zod schema for forum.barazo.topic.post records.

@@ -1,7 +1,6 @@
 import { z } from 'zod'
 import { strongRefSchema } from './strong-ref.js'
-
-const didRegex = /^did:[a-z]+:[a-zA-Z0-9._:%-]+$/
+import { didRegex } from './patterns.js'
 
 /**
  * Zod schema for forum.barazo.interaction.vote records.
