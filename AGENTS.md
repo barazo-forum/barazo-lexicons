@@ -23,6 +23,7 @@ Lexicon schemas for the Barazo forum platform. Defines all `forum.barazo.*` reco
 - `forum.barazo.topic.post` -- main thread posts
 - `forum.barazo.topic.reply` -- replies to threads
 - `forum.barazo.interaction.reaction` -- reactions (configurable per forum)
+- `forum.barazo.actor.preferences` -- per-user preferences (singleton record)
 
 Categories are AppView-only (admin-managed, stored in PostgreSQL), not PDS records.
 
@@ -39,7 +40,7 @@ Categories are AppView-only (admin-managed, stored in PostgreSQL), not PDS recor
 
 ### About Barazo
 
-Federated forum built on the [AT Protocol](https://atproto.com/). Portable identity, user-owned data, cross-community reputation.
+Open-source forum software built on the [AT Protocol](https://atproto.com/). Portable identity, member-owned data, no lock-in.
 
 - **Organization:** [github.com/barazo-forum](https://github.com/barazo-forum)
 - **License:** AGPL-3.0 (backend) / MIT (frontend, lexicons, deploy, website)
