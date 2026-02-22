@@ -23,7 +23,6 @@ Lexicon schemas for the Barazo forum platform. Defines all `forum.barazo.*` reco
 - `forum.barazo.topic.post` -- main thread posts
 - `forum.barazo.topic.reply` -- replies to threads
 - `forum.barazo.interaction.reaction` -- reactions (configurable per forum)
-- `forum.barazo.actor.preferences` -- per-user preferences (singleton record)
 
 Categories are AppView-only (admin-managed, stored in PostgreSQL), not PDS records.
 
