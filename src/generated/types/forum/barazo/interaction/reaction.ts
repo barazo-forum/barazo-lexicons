@@ -18,8 +18,12 @@ const id = 'forum.barazo.interaction.reaction'
 export interface Main {
   $type: 'forum.barazo.interaction.reaction'
   subject: ComAtprotoRepoStrongRef.Main
-  /** Reaction type (e.g., 'like', 'heart', 'thumbsup'). Must match community's configured reaction set. */
-  type: string
+  /** Reaction type identifier. Communities may define additional values. */
+  type:
+    | 'forum.barazo.interaction.reaction#like'
+    | 'forum.barazo.interaction.reaction#heart'
+    | 'forum.barazo.interaction.reaction#thumbsup'
+    | (string & {})
   /** DID of the community where this reaction was created. Immutable origin identifier. */
   community: string
   /** Client-declared timestamp when this reaction was originally created. */
@@ -42,3 +46,10 @@ export {
   isMain as isRecord,
   validateMain as validateRecord,
 }
+
+/** Simple approval reaction. */
+export const LIKE = `${id}#like`
+/** Love/appreciation reaction. */
+export const HEART = `${id}#heart`
+/** Agreement/thumbs-up reaction. */
+export const THUMBSUP = `${id}#thumbsup`

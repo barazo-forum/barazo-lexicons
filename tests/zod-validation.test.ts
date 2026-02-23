@@ -5,6 +5,7 @@ import {
   reactionSchema,
   voteSchema,
   actorPreferencesSchema,
+  communityRefSchema,
 } from '../src/validation/index.js'
 
 const VALID_DID = 'did:plc:abc123def456'
@@ -84,6 +85,18 @@ describe('topicPostSchema', () => {
 
   it('rejects empty category', () => {
     expect(topicPostSchema.safeParse({ ...validPost, category: '' }).success).toBe(false)
+  })
+
+  it('accepts valid record-key category values', () => {
+    for (const key of ['general', 'my-category', 'v1.0', 'test_key', 'a:b']) {
+      expect(topicPostSchema.safeParse({ ...validPost, category: key }).success).toBe(true)
+    }
+  })
+
+  it('rejects invalid record-key category values', () => {
+    for (const key of ['.', '..', 'has space', 'has/slash', 'has@at']) {
+      expect(topicPostSchema.safeParse({ ...validPost, category: key }).success).toBe(false)
+    }
   })
 
   it('rejects missing required fields', () => {
@@ -201,6 +214,22 @@ describe('reactionSchema', () => {
     )
   })
 
+  it('accepts known token values', () => {
+    for (const type of [
+      'forum.barazo.interaction.reaction#like',
+      'forum.barazo.interaction.reaction#heart',
+      'forum.barazo.interaction.reaction#thumbsup',
+    ]) {
+      expect(reactionSchema.safeParse({ ...validReaction, type }).success).toBe(true)
+    }
+  })
+
+  it('accepts custom reaction type values (knownValues is open)', () => {
+    expect(
+      reactionSchema.safeParse({ ...validReaction, type: 'custom-community-reaction' }).success
+    ).toBe(true)
+  })
+
   it('rejects invalid subject (not a strongRef)', () => {
     expect(
       reactionSchema.safeParse({
@@ -314,5 +343,19 @@ describe('actorPreferencesSchema', () => {
         blockedDids: ['not-a-did'],
       }).success
     ).toBe(false)
+  })
+})
+
+describe('communityRefSchema', () => {
+  it('accepts a valid community reference', () => {
+    expect(communityRefSchema.safeParse({ did: VALID_DID }).success).toBe(true)
+  })
+
+  it('rejects invalid DID format', () => {
+    expect(communityRefSchema.safeParse({ did: 'not-a-did' }).success).toBe(false)
+  })
+
+  it('rejects missing did field', () => {
+    expect(communityRefSchema.safeParse({}).success).toBe(false)
   })
 })
