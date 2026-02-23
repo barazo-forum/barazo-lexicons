@@ -26,7 +26,7 @@ export interface Main {
   contentFormat?: 'markdown' | (string & {})
   /** DID of the community where this record was created. Immutable origin identifier for cross-community attribution. */
   community: string
-  /** Category rkey within the community. */
+  /** Category record key (slug) within the community. Follows AT Protocol record key syntax. */
   category: string
   /** Topic tags. Lowercase alphanumeric + hyphens. */
   tags?: string[]

@@ -18,10 +18,14 @@
           },
           "type": {
             "type": "string",
-            "minLength": 1,
+            "knownValues": [
+              "forum.barazo.interaction.reaction#like",
+              "forum.barazo.interaction.reaction#heart",
+              "forum.barazo.interaction.reaction#thumbsup"
+            ],
             "maxLength": 300,
             "maxGraphemes": 30,
-            "description": "Reaction type (e.g., 'like', 'heart', 'thumbsup'). Must match community's configured reaction set."
+            "description": "Reaction type identifier. Communities may define additional values."
           },
           "community": {
             "type": "string",
@@ -35,6 +39,9 @@
           }
         }
       }
-    }
+    },
+    "like": { "type": "token", "description": "Simple approval reaction." },
+    "heart": { "type": "token", "description": "Love/appreciation reaction." },
+    "thumbsup": { "type": "token", "description": "Agreement/thumbs-up reaction." }
   }
 }
