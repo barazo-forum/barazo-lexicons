@@ -18,7 +18,7 @@ export const topicPostSchema = z.object({
   contentFormat: z.literal('markdown').optional(),
   community: z.string().regex(didRegex),
   category: z.string().regex(recordKeyRegex).max(640),
-  tags: z.array(z.string().min(1).max(300)).max(5).optional(),
+  tags: z.array(z.string().min(1).max(300)).max(25).optional(),
   facets: z.array(facetSchema).optional(),
   langs: z.array(z.string().min(1)).max(3).optional(),
   labels: selfLabelsSchema.optional(),

@@ -67,10 +67,10 @@ describe('topicPostSchema', () => {
     expect(topicPostSchema.safeParse({ ...validPost, community: 'not-a-did' }).success).toBe(false)
   })
 
-  it('rejects more than 5 tags', () => {
+  it('rejects more than 25 tags', () => {
     const tooManyTags = {
       ...validPost,
-      tags: ['a', 'b', 'c', 'd', 'e', 'f'],
+      tags: Array.from({ length: 26 }, (_, i) => `tag-${String(i)}`),
     }
     expect(topicPostSchema.safeParse(tooManyTags).success).toBe(false)
   })
