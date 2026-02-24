@@ -566,7 +566,7 @@ export const schemaDict = {
             },
             tags: {
               type: 'array',
-              maxLength: 5,
+              maxLength: 25,
               items: {
                 type: 'string',
                 minLength: 1,

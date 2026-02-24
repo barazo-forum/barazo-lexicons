@@ -118,7 +118,7 @@ describe('forum.barazo.topic.post lexicon', () => {
     expect(category['maxGraphemes']).toBe(64)
   })
 
-  it('tags is optional with max 5 items', () => {
+  it('tags is optional with max 25 items', () => {
     const defs = schema['defs'] as Record<string, unknown>
     const main = defs['main'] as Record<string, unknown>
     const record = main['record'] as Record<string, unknown>
@@ -126,7 +126,7 @@ describe('forum.barazo.topic.post lexicon', () => {
     expect(required).not.toContain('tags')
     const props = record['properties'] as Record<string, unknown>
     const tags = props['tags'] as Record<string, unknown>
-    expect(tags['maxLength']).toBe(5)
+    expect(tags['maxLength']).toBe(25)
   })
 
   it('has optional facets array referencing app.bsky.richtext.facet', () => {
