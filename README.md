@@ -168,7 +168,7 @@ See [CONTRIBUTING.md](https://github.com/barazo-forum/.github/blob/main/CONTRIBU
 
 ## License
 
-**MIT** -- Protocol schemas should be freely usable by anyone building on the AT Protocol.
+**MIT**
 
 See [LICENSE](LICENSE) for full terms.
 
