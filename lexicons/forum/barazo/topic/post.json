@@ -36,13 +36,14 @@
           },
           "category": {
             "type": "string",
+            "format": "record-key",
             "maxLength": 640,
             "maxGraphemes": 64,
-            "description": "Category rkey within the community."
+            "description": "Category record key (slug) within the community. Follows AT Protocol record key syntax."
           },
           "tags": {
             "type": "array",
-            "maxLength": 5,
+            "maxLength": 25,
             "items": {
               "type": "string",
               "minLength": 1,

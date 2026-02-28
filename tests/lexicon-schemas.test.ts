@@ -106,7 +106,19 @@ describe('forum.barazo.topic.post lexicon', () => {
     expect(labels['refs']).toContain('com.atproto.label.defs#selfLabels')
   })
 
-  it('tags is optional with max 5 items', () => {
+  it('category uses record-key format', () => {
+    const defs = schema['defs'] as Record<string, unknown>
+    const main = defs['main'] as Record<string, unknown>
+    const record = main['record'] as Record<string, unknown>
+    const props = record['properties'] as Record<string, unknown>
+    const category = props['category'] as Record<string, unknown>
+    expect(category['type']).toBe('string')
+    expect(category['format']).toBe('record-key')
+    expect(category['maxLength']).toBe(640)
+    expect(category['maxGraphemes']).toBe(64)
+  })
+
+  it('tags is optional with max 25 items', () => {
     const defs = schema['defs'] as Record<string, unknown>
     const main = defs['main'] as Record<string, unknown>
     const record = main['record'] as Record<string, unknown>
@@ -114,7 +126,7 @@ describe('forum.barazo.topic.post lexicon', () => {
     expect(required).not.toContain('tags')
     const props = record['properties'] as Record<string, unknown>
     const tags = props['tags'] as Record<string, unknown>
-    expect(tags['maxLength']).toBe(5)
+    expect(tags['maxLength']).toBe(25)
   })
 
   it('has optional facets array referencing app.bsky.richtext.facet', () => {
@@ -230,6 +242,29 @@ describe('forum.barazo.interaction.reaction lexicon', () => {
     expect(subject['type']).toBe('ref')
     expect(subject['ref']).toBe('com.atproto.repo.strongRef')
   })
+
+  it('type uses knownValues with token references', () => {
+    const defs = schema['defs'] as Record<string, unknown>
+    const main = defs['main'] as Record<string, unknown>
+    const record = main['record'] as Record<string, unknown>
+    const props = record['properties'] as Record<string, unknown>
+    const type = props['type'] as Record<string, unknown>
+    expect(type['knownValues']).toEqual([
+      'forum.barazo.interaction.reaction#like',
+      'forum.barazo.interaction.reaction#heart',
+      'forum.barazo.interaction.reaction#thumbsup',
+    ])
+  })
+
+  it('defines like, heart, and thumbsup token defs', () => {
+    const defs = schema['defs'] as Record<string, unknown>
+    for (const token of ['like', 'heart', 'thumbsup']) {
+      const def = defs[token] as Record<string, unknown>
+      expect(def).toBeDefined()
+      expect(def['type']).toBe('token')
+      expect(def['description']).toBeTypeOf('string')
+    }
+  })
 })
 
 describe('forum.barazo.interaction.vote lexicon', () => {
@@ -332,6 +367,27 @@ describe('forum.barazo.authForumAccess lexicon', () => {
     expect(collections).toContain('forum.barazo.interaction.reaction')
     expect(collections).toContain('forum.barazo.interaction.vote')
     expect(collections).toContain('forum.barazo.actor.preferences')
+  })
+})
+
+describe('forum.barazo.defs lexicon', () => {
+  let schema: Record<string, unknown>
+
+  it('loads successfully', async () => {
+    schema = (await loadJson(join(LEXICONS_DIR, 'defs.json'))) as Record<string, unknown>
+    expect(schema['id']).toBe('forum.barazo.defs')
+  })
+
+  it('defines communityRef as an object with required did field', () => {
+    const defs = schema['defs'] as Record<string, unknown>
+    const communityRef = defs['communityRef'] as Record<string, unknown>
+    expect(communityRef).toBeDefined()
+    expect(communityRef['type']).toBe('object')
+    expect(communityRef['required']).toEqual(['did'])
+    const props = communityRef['properties'] as Record<string, unknown>
+    const did = props['did'] as Record<string, unknown>
+    expect(did['type']).toBe('string')
+    expect(did['format']).toBe('did')
   })
 })
 

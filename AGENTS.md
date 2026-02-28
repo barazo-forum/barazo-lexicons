@@ -23,7 +23,6 @@ Lexicon schemas for the Barazo forum platform. Defines all `forum.barazo.*` reco
 - `forum.barazo.topic.post` -- main thread posts
 - `forum.barazo.topic.reply` -- replies to threads
 - `forum.barazo.interaction.reaction` -- reactions (configurable per forum)
-- `forum.barazo.actor.preferences` -- per-user preferences (singleton record)
 
 Categories are AppView-only (admin-managed, stored in PostgreSQL), not PDS records.
 
@@ -43,7 +42,7 @@ Categories are AppView-only (admin-managed, stored in PostgreSQL), not PDS recor
 Open-source forum software built on the [AT Protocol](https://atproto.com/). Portable identity, member-owned data, no lock-in.
 
 - **Organization:** [github.com/barazo-forum](https://github.com/barazo-forum)
-- **License:** AGPL-3.0 (backend) / MIT (frontend, lexicons, deploy, website)
+- **License:** AGPL-3.0 (backend) / MIT (frontend, lexicons, deploy) / CC BY-SA 4.0 + MIT (docs) / Proprietary (website)
 - **Contributing:** See [CONTRIBUTING.md](https://github.com/barazo-forum/.github/blob/main/CONTRIBUTING.md)
 
 ### Coding Standards
@@ -56,7 +55,6 @@ Open-source forum software built on the [AT Protocol](https://atproto.com/). Por
 6. **Output sanitization** -- DOMPurify on all user-generated content.
 7. **No raw SQL** -- Drizzle ORM with parameterized queries only.
 8. **Structured logging** -- Pino logger, never `console.log`.
-9. **Accessibility** -- WCAG 2.2 AA, semantic HTML, keyboard navigable.
 
 ### Git Workflow
 

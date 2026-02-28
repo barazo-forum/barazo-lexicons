@@ -399,9 +399,21 @@ export const schemaDict = {
   ForumBarazoDefs: {
     lexicon: 1,
     id: 'forum.barazo.defs',
-    description:
-      'Shared type definitions for Barazo forum lexicons. Reserved for future reusable types.',
-    defs: {},
+    description: 'Shared type definitions for Barazo forum lexicons.',
+    defs: {
+      communityRef: {
+        type: 'object',
+        description: 'Reference to a Barazo community by its DID.',
+        required: ['did'],
+        properties: {
+          did: {
+            type: 'string',
+            format: 'did',
+            description: "The community's DID.",
+          },
+        },
+      },
+    },
   },
   ForumBarazoInteractionReaction: {
     lexicon: 1,
@@ -424,11 +436,15 @@ export const schemaDict = {
             },
             type: {
               type: 'string',
-              minLength: 1,
+              knownValues: [
+                'forum.barazo.interaction.reaction#like',
+                'forum.barazo.interaction.reaction#heart',
+                'forum.barazo.interaction.reaction#thumbsup',
+              ],
               maxLength: 300,
               maxGraphemes: 30,
               description:
-                "Reaction type (e.g., 'like', 'heart', 'thumbsup'). Must match community's configured reaction set.",
+                'Reaction type identifier. Communities may define additional values.',
             },
             community: {
               type: 'string',
@@ -444,6 +460,18 @@ export const schemaDict = {
             },
           },
         },
+      },
+      like: {
+        type: 'token',
+        description: 'Simple approval reaction.',
+      },
+      heart: {
+        type: 'token',
+        description: 'Love/appreciation reaction.',
+      },
+      thumbsup: {
+        type: 'token',
+        description: 'Agreement/thumbs-up reaction.',
       },
     },
   },
@@ -530,13 +558,15 @@ export const schemaDict = {
             },
             category: {
               type: 'string',
+              format: 'record-key',
               maxLength: 640,
               maxGraphemes: 64,
-              description: 'Category rkey within the community.',
+              description:
+                'Category record key (slug) within the community. Follows AT Protocol record key syntax.',
             },
             tags: {
               type: 'array',
-              maxLength: 5,
+              maxLength: 25,
               items: {
                 type: 'string',
                 minLength: 1,

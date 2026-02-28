@@ -1,7 +1,7 @@
 import { z } from 'zod'
 import { selfLabelsSchema } from './self-labels.js'
 import { facetSchema } from './facet.js'
-import { didRegex } from './patterns.js'
+import { didRegex, recordKeyRegex } from './patterns.js'
 
 /**
  * Zod schema for forum.barazo.topic.post records.
@@ -17,8 +17,8 @@ export const topicPostSchema = z.object({
   content: z.string().min(1).max(100_000),
   contentFormat: z.literal('markdown').optional(),
   community: z.string().regex(didRegex),
-  category: z.string().min(1).max(640),
-  tags: z.array(z.string().min(1).max(300)).max(5).optional(),
+  category: z.string().regex(recordKeyRegex).max(640),
+  tags: z.array(z.string().min(1).max(300)).max(25).optional(),
   facets: z.array(facetSchema).optional(),
   langs: z.array(z.string().min(1)).max(3).optional(),
   labels: selfLabelsSchema.optional(),

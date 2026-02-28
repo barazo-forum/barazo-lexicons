@@ -10,4 +10,5 @@ export {
 export { strongRefSchema } from './strong-ref.js'
 export { selfLabelsSchema, selfLabelSchema } from './self-labels.js'
 export { facetSchema } from './facet.js'
+export { communityRefSchema, type CommunityRefInput } from './community-ref.js'
 export { didRegex } from './patterns.js'

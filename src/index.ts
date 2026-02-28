@@ -14,6 +14,7 @@ export {
   ForumBarazoInteractionReaction,
   ForumBarazoInteractionVote,
   ForumBarazoActorPreferences,
+  ForumBarazoDefs,
   ComAtprotoRepoStrongRef,
   ComAtprotoLabelDefs,
 } from './generated/index.js'
@@ -34,12 +35,14 @@ export {
   selfLabelsSchema,
   selfLabelSchema,
   facetSchema,
+  communityRefSchema,
   didRegex,
   type TopicPostInput,
   type TopicReplyInput,
   type ReactionInput,
   type VoteInput,
   type ActorPreferencesInput,
+  type CommunityRefInput,
 } from './validation/index.js'
 
 // Lexicon ID constants

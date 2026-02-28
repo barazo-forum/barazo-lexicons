@@ -5,6 +5,7 @@ import {
   ForumBarazoInteractionReaction,
   ForumBarazoInteractionVote,
   ForumBarazoActorPreferences,
+  ForumBarazoDefs,
   LEXICON_IDS,
   schemas,
   ids,
@@ -34,6 +35,19 @@ describe('generated type exports', () => {
   it('exports ForumBarazoActorPreferences with Record type and validators', () => {
     expect(ForumBarazoActorPreferences.isRecord).toBeTypeOf('function')
     expect(ForumBarazoActorPreferences.validateRecord).toBeTypeOf('function')
+  })
+
+  it('exports ForumBarazoDefs with CommunityRef validators', () => {
+    expect(ForumBarazoDefs.isCommunityRef).toBeTypeOf('function')
+    expect(ForumBarazoDefs.validateCommunityRef).toBeTypeOf('function')
+  })
+
+  it('exports reaction token constants', () => {
+    expect(ForumBarazoInteractionReaction.LIKE).toBe('forum.barazo.interaction.reaction#like')
+    expect(ForumBarazoInteractionReaction.HEART).toBe('forum.barazo.interaction.reaction#heart')
+    expect(ForumBarazoInteractionReaction.THUMBSUP).toBe(
+      'forum.barazo.interaction.reaction#thumbsup'
+    )
   })
 })
 
