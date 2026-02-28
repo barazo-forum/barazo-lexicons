@@ -34,6 +34,7 @@ export {
   selfLabelsSchema,
   selfLabelSchema,
   facetSchema,
+  didRegex,
   type TopicPostInput,
   type TopicReplyInput,
   type ReactionInput,
