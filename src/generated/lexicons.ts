@@ -396,6 +396,35 @@ export const schemaDict = {
       },
     },
   },
+  ForumBarazoActorSignature: {
+    lexicon: 1,
+    id: 'forum.barazo.actor.signature',
+    defs: {
+      main: {
+        type: 'record',
+        description:
+          "A user's forum signature, displayed below their posts. Singleton record (one per user).",
+        key: 'literal:self',
+        record: {
+          type: 'object',
+          required: ['text', 'createdAt'],
+          properties: {
+            text: {
+              type: 'string',
+              description:
+                'Signature content. Plain text or markdown depending on forum configuration.',
+              maxGraphemes: 300,
+              maxLength: 3000,
+            },
+            createdAt: {
+              type: 'string',
+              format: 'datetime',
+            },
+          },
+        },
+      },
+    },
+  },
   ForumBarazoDefs: {
     lexicon: 1,
     id: 'forum.barazo.defs',
@@ -727,6 +756,7 @@ export const ids = {
   ComAtprotoLabelDefs: 'com.atproto.label.defs',
   ComAtprotoRepoStrongRef: 'com.atproto.repo.strongRef',
   ForumBarazoActorPreferences: 'forum.barazo.actor.preferences',
+  ForumBarazoActorSignature: 'forum.barazo.actor.signature',
   ForumBarazoAuthForumAccess: 'forum.barazo.authForumAccess',
   ForumBarazoDefs: 'forum.barazo.defs',
   ForumBarazoInteractionReaction: 'forum.barazo.interaction.reaction',

@@ -22,6 +22,7 @@ export * as AppBskyRichtextFacet from "./types/app/bsky/richtext/facet.js";
 export * as ComAtprotoLabelDefs from "./types/com/atproto/label/defs.js";
 export * as ComAtprotoRepoStrongRef from "./types/com/atproto/repo/strongRef.js";
 export * as ForumBarazoActorPreferences from "./types/forum/barazo/actor/preferences.js";
+export * as ForumBarazoActorSignature from "./types/forum/barazo/actor/signature.js";
 export * as ForumBarazoDefs from "./types/forum/barazo/defs.js";
 export * as ForumBarazoInteractionReaction from "./types/forum/barazo/interaction/reaction.js";
 export * as ForumBarazoInteractionVote from "./types/forum/barazo/interaction/vote.js";
