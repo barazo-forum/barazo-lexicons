@@ -291,33 +291,6 @@ export const schemaDict = {
       },
     },
   },
-  ForumBarazoAuthForumAccess: {
-    lexicon: 1,
-    id: 'forum.barazo.authForumAccess',
-    description:
-      'Permission set for Barazo forum access. Grants ability to create topics, replies, and reactions, and manage user preferences.',
-    defs: {
-      main: {
-        type: 'permission-set',
-        title: 'Barazo Forum',
-        detail:
-          'Create topics, replies, and reactions. Manage your forum preferences.',
-        permissions: [
-          {
-            type: 'permission',
-            resource: 'repo',
-            collection: [
-              'forum.barazo.topic.post',
-              'forum.barazo.topic.reply',
-              'forum.barazo.interaction.reaction',
-              'forum.barazo.interaction.vote',
-              'forum.barazo.actor.preferences',
-            ],
-          },
-        ],
-      },
-    },
-  },
   ForumBarazoActorPreferences: {
     lexicon: 1,
     id: 'forum.barazo.actor.preferences',
@@ -391,6 +364,35 @@ export const schemaDict = {
           frontpage: {
             type: 'boolean',
             description: 'Cross-post new topics to Frontpage. Default: false.',
+          },
+        },
+      },
+    },
+  },
+  ForumBarazoActorSignature: {
+    lexicon: 1,
+    id: 'forum.barazo.actor.signature',
+    defs: {
+      main: {
+        type: 'record',
+        description:
+          "A user's forum signature, displayed below their posts. Singleton record (one per user).",
+        key: 'literal:self',
+        record: {
+          type: 'object',
+          required: ['text', 'createdAt'],
+          properties: {
+            text: {
+              type: 'string',
+              description:
+                'Signature content. Plain text or markdown depending on forum configuration.',
+              maxGraphemes: 300,
+              maxLength: 3000,
+            },
+            createdAt: {
+              type: 'string',
+              format: 'datetime',
+            },
           },
         },
       },
@@ -690,6 +692,31 @@ export const schemaDict = {
       },
     },
   },
+  ForumBarazoAuthForumAccess: {
+      "lexicon": 1,
+      "id": "forum.barazo.authForumAccess",
+      "description": "Permission set for Barazo forum access. Grants ability to create topics, replies, and reactions, and manage user preferences.",
+      "defs": {
+          "main": {
+              "type": "permission-set",
+              "title": "Barazo Forum",
+              "detail": "Create topics, replies, and reactions. Manage your forum preferences.",
+              "permissions": [
+                  {
+                      "type": "permission",
+                      "resource": "repo",
+                      "collection": [
+                          "forum.barazo.topic.post",
+                          "forum.barazo.topic.reply",
+                          "forum.barazo.interaction.reaction",
+                          "forum.barazo.interaction.vote",
+                          "forum.barazo.actor.preferences"
+                      ]
+                  }
+              ]
+          }
+      }
+  },
 } as const satisfies Record<string, LexiconDoc>
 export const schemas = Object.values(schemaDict) satisfies LexiconDoc[]
 export const lexicons: Lexicons = new Lexicons(schemas)
@@ -727,10 +754,11 @@ export const ids = {
   ComAtprotoLabelDefs: 'com.atproto.label.defs',
   ComAtprotoRepoStrongRef: 'com.atproto.repo.strongRef',
   ForumBarazoActorPreferences: 'forum.barazo.actor.preferences',
-  ForumBarazoAuthForumAccess: 'forum.barazo.authForumAccess',
+  ForumBarazoActorSignature: 'forum.barazo.actor.signature',
   ForumBarazoDefs: 'forum.barazo.defs',
   ForumBarazoInteractionReaction: 'forum.barazo.interaction.reaction',
   ForumBarazoInteractionVote: 'forum.barazo.interaction.vote',
   ForumBarazoTopicPost: 'forum.barazo.topic.post',
   ForumBarazoTopicReply: 'forum.barazo.topic.reply',
+  ForumBarazoAuthForumAccess: 'forum.barazo.authForumAccess',
 } as const
