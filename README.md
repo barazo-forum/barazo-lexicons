@@ -1,9 +1,9 @@
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/barazo-forum/.github/main/assets/logo-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/barazo-forum/.github/main/assets/logo-light.svg">
-  <img alt="Barazo Logo" src="https://raw.githubusercontent.com/barazo-forum/.github/main/assets/logo-dark.svg" width="120">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/singi-labs/.github/main/assets/logo-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/singi-labs/.github/main/assets/logo-light.svg">
+  <img alt="Barazo Logo" src="https://raw.githubusercontent.com/singi-labs/.github/main/assets/logo-dark.svg" width="120">
 </picture>
 
 # Barazo Lexicons
@@ -12,7 +12,7 @@
 
 [![Status: Alpha](https://img.shields.io/badge/status-alpha-orange)]()
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![CI](https://github.com/barazo-forum/barazo-lexicons/actions/workflows/ci.yml/badge.svg)](https://github.com/barazo-forum/barazo-lexicons/actions/workflows/ci.yml)
+[![CI](https://github.com/singi-labs/barazo-lexicons/actions/workflows/ci.yml/badge.svg)](https://github.com/singi-labs/barazo-lexicons/actions/workflows/ci.yml)
 [![Node.js](https://img.shields.io/badge/node-24%20LTS-brightgreen)](https://nodejs.org/)
 [![TypeScript](https://img.shields.io/badge/typescript-5.x-blue)](https://www.typescriptlang.org/)
 
@@ -51,7 +51,7 @@ import {
   ForumBarazoTopicReply,
   ForumBarazoInteractionReaction,
   ForumBarazoActorPreferences,
-} from '@barazo-forum/lexicons'
+} from '@singi-labs/lexicons'
 
 // Record type
 type Post = ForumBarazoTopicPost.Record
@@ -73,7 +73,7 @@ import {
   topicReplySchema,
   reactionSchema,
   actorPreferencesSchema,
-} from '@barazo-forum/lexicons'
+} from '@singi-labs/lexicons'
 
 const result = topicPostSchema.safeParse(input)
 if (result.success) {
@@ -84,7 +84,7 @@ if (result.success) {
 **Lexicon ID Constants:**
 
 ```typescript
-import { LEXICON_IDS, ids } from '@barazo-forum/lexicons'
+import { LEXICON_IDS, ids } from '@singi-labs/lexicons'
 
 LEXICON_IDS.TopicPost // "forum.barazo.topic.post"
 LEXICON_IDS.TopicReply // "forum.barazo.topic.reply"
@@ -96,7 +96,7 @@ LEXICON_IDS.AuthForumAccess // "forum.barazo.authForumAccess"
 **Raw Lexicon Schemas:**
 
 ```typescript
-import { schemas } from '@barazo-forum/lexicons'
+import { schemas } from '@singi-labs/lexicons'
 // Array of LexiconDoc objects for all forum.barazo.* schemas
 ```
 
@@ -109,13 +109,13 @@ import { schemas } from '@barazo-forum/lexicons'
 Configure GitHub Packages access in `.npmrc`:
 
 ```
-@barazo-forum:registry=https://npm.pkg.github.com
+@singi-labs:registry=https://npm.pkg.github.com
 ```
 
 Install:
 
 ```bash
-pnpm add @barazo-forum/lexicons
+pnpm add @singi-labs/lexicons
 ```
 
 Workspace consumers (`barazo-api`, `barazo-web`) are already linked via pnpm workspace.
@@ -133,18 +133,18 @@ pnpm lint          # Lint
 pnpm typecheck     # Type check
 ```
 
-See [CONTRIBUTING.md](https://github.com/barazo-forum/.github/blob/main/CONTRIBUTING.md) for branching strategy, commit format, and code review process.
+See [CONTRIBUTING.md](https://github.com/singi-labs/.github/blob/main/CONTRIBUTING.md) for branching strategy, commit format, and code review process.
 
 ---
 
 ## Related Repositories
 
-| Repository                                                       | Description                                   | License  |
-| ---------------------------------------------------------------- | --------------------------------------------- | -------- |
-| [barazo-api](https://github.com/barazo-forum/barazo-api)         | AppView backend (Fastify, firehose, REST API) | AGPL-3.0 |
-| [barazo-web](https://github.com/barazo-forum/barazo-web)         | Forum frontend (Next.js, Tailwind)            | MIT      |
-| [barazo-deploy](https://github.com/barazo-forum/barazo-deploy)   | Docker Compose deployment templates           | MIT      |
-| [barazo-website](https://github.com/barazo-forum/barazo-website) | Marketing + documentation site                | MIT      |
+| Repository                                                     | Description                                   | License  |
+| -------------------------------------------------------------- | --------------------------------------------- | -------- |
+| [barazo-api](https://github.com/singi-labs/barazo-api)         | AppView backend (Fastify, firehose, REST API) | AGPL-3.0 |
+| [barazo-web](https://github.com/singi-labs/barazo-web)         | Forum frontend (Next.js, Tailwind)            | MIT      |
+| [barazo-deploy](https://github.com/singi-labs/barazo-deploy)   | Docker Compose deployment templates           | MIT      |
+| [barazo-website](https://github.com/singi-labs/barazo-website) | Marketing + documentation site                | MIT      |
 
 ---
 
@@ -161,8 +161,8 @@ See [CONTRIBUTING.md](https://github.com/barazo-forum/.github/blob/main/CONTRIBU
 ## Community
 
 - **Website:** [barazo.forum](https://barazo.forum)
-- **Discussions:** [GitHub Discussions](https://github.com/orgs/barazo-forum/discussions)
-- **Issues:** [Report bugs](https://github.com/barazo-forum/barazo-lexicons/issues)
+- **Discussions:** [GitHub Discussions](https://github.com/orgs/singi-labs/discussions)
+- **Issues:** [Report bugs](https://github.com/singi-labs/barazo-lexicons/issues)
 
 ---
 

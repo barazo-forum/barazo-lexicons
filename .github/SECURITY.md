@@ -34,7 +34,7 @@ barazo-lexicons defines AT Protocol lexicon schemas and generates TypeScript typ
 
 ### Supply Chain
 
-- **npm package tampering** -- the published `@barazo-forum/lexicons` package containing code or types not present in the source repo
+- **npm package tampering** -- the published `@singi-labs/lexicons` package containing code or types not present in the source repo
 - **Build script injection** -- malicious code in the type generation pipeline that could execute during `npm install` or build
 - **Dependency confusion** -- packages with similar names that could be installed instead of the legitimate package
 

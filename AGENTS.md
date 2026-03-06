@@ -1,9 +1,9 @@
 # Barazo Lexicons -- Schema Definitions
 
 <!-- Auto-generated from barazo-workspace. To propose changes, edit the source:
-     https://github.com/barazo-forum/barazo-workspace/tree/main/agents-md -->
+     https://github.com/singi-labs/barazo-workspace/tree/main/agents-md -->
 
-MIT | Part of [github.com/barazo-forum](https://github.com/barazo-forum)
+MIT | Part of [github.com/singi-labs](https://github.com/singi-labs)
 
 Lexicon schemas for the Barazo forum platform. Defines all `forum.barazo.*` record types and generates TypeScript types consumed by barazo-api and barazo-web.
 
@@ -41,9 +41,9 @@ Categories are AppView-only (admin-managed, stored in PostgreSQL), not PDS recor
 
 Open-source forum software built on the [AT Protocol](https://atproto.com/). Portable identity, member-owned data, no lock-in.
 
-- **Organization:** [github.com/barazo-forum](https://github.com/barazo-forum)
+- **Organization:** [github.com/singi-labs](https://github.com/singi-labs)
 - **License:** AGPL-3.0 (backend) / MIT (frontend, lexicons, deploy) / CC BY-SA 4.0 + MIT (docs) / Proprietary (website)
-- **Contributing:** See [CONTRIBUTING.md](https://github.com/barazo-forum/.github/blob/main/CONTRIBUTING.md)
+- **Contributing:** See [CONTRIBUTING.md](https://github.com/singi-labs/.github/blob/main/CONTRIBUTING.md)
 
 ### Coding Standards
 
