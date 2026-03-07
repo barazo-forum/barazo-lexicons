@@ -19,7 +19,7 @@ async function getAllLexiconFiles(dir: string): Promise<string[]> {
 describe('Lexicon JSON schema structure', () => {
   it('all lexicon files are valid JSON', async () => {
     const files = await getAllLexiconFiles(LEXICONS_DIR)
-    expect(files.length).toBeGreaterThanOrEqual(5)
+    expect(files.length).toBeGreaterThanOrEqual(6)
     for (const file of files) {
       await expect(loadJson(file)).resolves.toBeDefined()
     }
@@ -63,7 +63,7 @@ describe('forum.barazo.topic.post lexicon', () => {
     expect(main['key']).toBe('tid')
   })
 
-  it('has required fields: title, content, community, category, createdAt', () => {
+  it('has required fields: title, content, community, category, publishedAt', () => {
     const defs = schema['defs'] as Record<string, unknown>
     const main = defs['main'] as Record<string, unknown>
     const record = main['record'] as Record<string, unknown>
@@ -72,7 +72,29 @@ describe('forum.barazo.topic.post lexicon', () => {
     expect(required).toContain('content')
     expect(required).toContain('community')
     expect(required).toContain('category')
-    expect(required).toContain('createdAt')
+    expect(required).toContain('publishedAt')
+  })
+
+  it('content is a union referencing forum.barazo.richtext#markdown', () => {
+    const defs = schema['defs'] as Record<string, unknown>
+    const main = defs['main'] as Record<string, unknown>
+    const record = main['record'] as Record<string, unknown>
+    const props = record['properties'] as Record<string, unknown>
+    const content = props['content'] as Record<string, unknown>
+    expect(content['type']).toBe('union')
+    expect(content['refs']).toContain('forum.barazo.richtext#markdown')
+  })
+
+  it('has optional site field', () => {
+    const defs = schema['defs'] as Record<string, unknown>
+    const main = defs['main'] as Record<string, unknown>
+    const record = main['record'] as Record<string, unknown>
+    const required = record['required'] as string[]
+    expect(required).not.toContain('site')
+    const props = record['properties'] as Record<string, unknown>
+    const site = props['site'] as Record<string, unknown>
+    expect(site['type']).toBe('string')
+    expect(site['maxLength']).toBe(5000)
   })
 
   it('title has maxGraphemes: 200 and maxLength: 2000', () => {
@@ -173,6 +195,16 @@ describe('forum.barazo.topic.reply lexicon', () => {
     expect(required).toEqual(
       expect.arrayContaining(['content', 'root', 'parent', 'community', 'createdAt'])
     )
+  })
+
+  it('content is a union referencing forum.barazo.richtext#markdown', () => {
+    const defs = schema['defs'] as Record<string, unknown>
+    const main = defs['main'] as Record<string, unknown>
+    const record = main['record'] as Record<string, unknown>
+    const props = record['properties'] as Record<string, unknown>
+    const content = props['content'] as Record<string, unknown>
+    expect(content['type']).toBe('union')
+    expect(content['refs']).toContain('forum.barazo.richtext#markdown')
   })
 
   it('root and parent use strongRef', () => {

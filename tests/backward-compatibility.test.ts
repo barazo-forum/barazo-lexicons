@@ -82,25 +82,24 @@ function withType<T extends Record<string, unknown>>(
 
 const SCHEMA_SNAPSHOTS = {
   'forum.barazo.topic.post': {
-    requiredFields: ['title', 'content', 'community', 'category', 'createdAt'],
+    requiredFields: ['title', 'content', 'community', 'category', 'publishedAt'],
     allProperties: [
       'title',
       'content',
-      'contentFormat',
       'community',
       'category',
+      'site',
       'tags',
       'facets',
       'langs',
       'labels',
-      'createdAt',
+      'publishedAt',
     ],
   },
   'forum.barazo.topic.reply': {
     requiredFields: ['content', 'root', 'parent', 'community', 'createdAt'],
     allProperties: [
       'content',
-      'contentFormat',
       'root',
       'parent',
       'community',
@@ -429,22 +428,21 @@ describe('backward compatibility: field type stability', () => {
       path: 'forum/barazo/topic/post.json',
       types: {
         title: 'string',
-        content: 'string',
-        contentFormat: 'string',
+        content: 'union',
         community: 'string',
         category: 'string',
+        site: 'string',
         tags: 'array',
         facets: 'array',
         langs: 'array',
         labels: 'union',
-        createdAt: 'string',
+        publishedAt: 'string',
       },
     },
     'forum.barazo.topic.reply': {
       path: 'forum/barazo/topic/reply.json',
       types: {
-        content: 'string',
-        contentFormat: 'string',
+        content: 'union',
         root: 'ref',
         parent: 'ref',
         community: 'string',

@@ -9,7 +9,7 @@
       "key": "tid",
       "record": {
         "type": "object",
-        "required": ["title", "content", "community", "category", "createdAt"],
+        "required": ["title", "content", "community", "category", "publishedAt"],
         "properties": {
           "title": {
             "type": "string",
@@ -19,15 +19,9 @@
             "description": "Topic title."
           },
           "content": {
-            "type": "string",
-            "minLength": 1,
-            "maxLength": 100000,
-            "description": "Topic body in markdown."
-          },
-          "contentFormat": {
-            "type": "string",
-            "knownValues": ["markdown"],
-            "description": "Content format. Defaults to 'markdown' if omitted."
+            "type": "union",
+            "description": "Post body content. Open union for extensible content formats.",
+            "refs": ["forum.barazo.richtext#markdown"]
           },
           "community": {
             "type": "string",
@@ -40,6 +34,11 @@
             "maxLength": 640,
             "maxGraphemes": 64,
             "description": "Category record key (slug) within the community. Follows AT Protocol record key syntax."
+          },
+          "site": {
+            "type": "string",
+            "maxLength": 5000,
+            "description": "Reference to a site.standard.publication record (at:// URI) or publication URL (https://). Enables cross-app content discovery."
           },
           "tags": {
             "type": "array",
@@ -74,10 +73,10 @@
             "description": "Self-label values for content maturity (e.g., sexual, nudity, graphic-media).",
             "refs": ["com.atproto.label.defs#selfLabels"]
           },
-          "createdAt": {
+          "publishedAt": {
             "type": "string",
             "format": "datetime",
-            "description": "Client-declared timestamp when this post was originally created."
+            "description": "Client-declared timestamp when this post was originally published."
           }
         }
       }

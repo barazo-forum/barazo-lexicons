@@ -12,15 +12,9 @@
         "required": ["content", "root", "parent", "community", "createdAt"],
         "properties": {
           "content": {
-            "type": "string",
-            "minLength": 1,
-            "maxLength": 50000,
-            "description": "Reply body in markdown."
-          },
-          "contentFormat": {
-            "type": "string",
-            "knownValues": ["markdown"],
-            "description": "Content format. Defaults to 'markdown' if omitted."
+            "type": "union",
+            "description": "Reply body content. Open union for extensible content formats.",
+            "refs": ["forum.barazo.richtext#markdown"]
           },
           "root": {
             "type": "ref",

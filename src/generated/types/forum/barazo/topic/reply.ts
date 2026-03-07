@@ -9,6 +9,7 @@ import {
   is$typed as _is$typed,
   type OmitKey,
 } from '../../../../util.js'
+import type * as ForumBarazoRichtext from '../richtext.js'
 import type * as ComAtprotoRepoStrongRef from '../../../com/atproto/repo/strongRef.js'
 import type * as AppBskyRichtextFacet from '../../../app/bsky/richtext/facet.js'
 import type * as ComAtprotoLabelDefs from '../../../com/atproto/label/defs.js'
@@ -19,10 +20,7 @@ const id = 'forum.barazo.topic.reply'
 
 export interface Main {
   $type: 'forum.barazo.topic.reply'
-  /** Reply body in markdown. */
-  content: string
-  /** Content format. Defaults to 'markdown' if omitted. */
-  contentFormat?: 'markdown' | (string & {})
+  content: $Typed<ForumBarazoRichtext.Markdown> | { $type: string }
   root: ComAtprotoRepoStrongRef.Main
   parent: ComAtprotoRepoStrongRef.Main
   /** DID of the community where this reply was created. Immutable origin identifier. */
