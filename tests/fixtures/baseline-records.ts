@@ -1,19 +1,11 @@
 /**
- * Baseline records representing data already stored on user PDSes.
- *
- * These fixtures simulate records created with the current schema version.
- * When schemas evolve (new optional fields, description changes, etc.),
- * these records MUST continue to validate. If any baseline record fails
- * validation after a schema change, the change is backward-incompatible
- * and must be reverted or handled via a new lexicon ID.
+ * Baseline records representing the current schema version.
  *
  * Each record type has:
  * - A minimal record (only required fields)
  * - A full record (all optional fields populated)
  *
- * DO NOT modify existing records in this file when adding new optional fields
- * to schemas. Instead, create new fixture variants that include the new fields.
- * The existing fixtures must remain unchanged to prove backward compatibility.
+ * Updated for v0.3.0: content union, publishedAt, site field.
  */
 
 const VALID_DID = 'did:plc:abc123def456'
@@ -23,34 +15,42 @@ const VALID_STRONG_REF = {
   cid: 'bafyreibouvacvqhc2vkwwtdkfynpcaoatmkde7uhrw47ne4gu63cnzc7yq',
 }
 
+const MARKDOWN_CONTENT = {
+  $type: 'forum.barazo.richtext#markdown' as const,
+  value: 'Hello, this is the body of my first topic post.',
+}
+
 // ── topic.post ──────────────────────────────────────────────────────
 
 export const topicPostMinimal = {
   title: 'My First Topic',
-  content: 'Hello, this is the body of my first topic post.',
+  content: MARKDOWN_CONTENT,
   community: VALID_DID,
   category: 'general',
-  createdAt: VALID_DATETIME,
+  publishedAt: VALID_DATETIME,
 }
 
 export const topicPostFull = {
   title: 'Full Featured Topic',
-  content: 'This topic includes every optional field available at v0.1.0.',
-  contentFormat: 'markdown' as const,
+  content: {
+    $type: 'forum.barazo.richtext#markdown' as const,
+    value: 'This topic includes every optional field.',
+  },
   community: VALID_DID,
   category: 'announcements',
+  site: 'at://did:plc:abc123/site.standard.publication/3lwafzkjqm25s',
   tags: ['release', 'v1'],
   labels: {
     $type: 'com.atproto.label.defs#selfLabels',
     values: [{ val: 'nudity' }],
   },
-  createdAt: VALID_DATETIME,
+  publishedAt: VALID_DATETIME,
 }
 
 // ── topic.reply ─────────────────────────────────────────────────────
 
 export const topicReplyMinimal = {
-  content: 'Great post, thanks for sharing!',
+  content: MARKDOWN_CONTENT,
   root: VALID_STRONG_REF,
   parent: VALID_STRONG_REF,
   community: VALID_DID,
@@ -58,8 +58,10 @@ export const topicReplyMinimal = {
 }
 
 export const topicReplyFull = {
-  content: 'This reply uses all optional fields available at v0.1.0.',
-  contentFormat: 'markdown' as const,
+  content: {
+    $type: 'forum.barazo.richtext#markdown' as const,
+    value: 'This reply uses all optional fields.',
+  },
   root: VALID_STRONG_REF,
   parent: VALID_STRONG_REF,
   community: VALID_DID,

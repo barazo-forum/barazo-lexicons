@@ -1,0 +1,20 @@
+{
+  "lexicon": 1,
+  "id": "forum.barazo.richtext",
+  "description": "Content format definitions for forum post and reply bodies.",
+  "defs": {
+    "markdown": {
+      "type": "object",
+      "description": "Markdown-formatted text content.",
+      "required": ["value"],
+      "properties": {
+        "value": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100000,
+          "description": "Markdown-formatted text."
+        }
+      }
+    }
+  }
+}

@@ -9,6 +9,7 @@ import {
   is$typed as _is$typed,
   type OmitKey,
 } from '../../../../util.js'
+import type * as ForumBarazoRichtext from '../richtext.js'
 import type * as AppBskyRichtextFacet from '../../../app/bsky/richtext/facet.js'
 import type * as ComAtprotoLabelDefs from '../../../com/atproto/label/defs.js'
 
@@ -20,14 +21,13 @@ export interface Main {
   $type: 'forum.barazo.topic.post'
   /** Topic title. */
   title: string
-  /** Topic body in markdown. */
-  content: string
-  /** Content format. Defaults to 'markdown' if omitted. */
-  contentFormat?: 'markdown' | (string & {})
+  content: $Typed<ForumBarazoRichtext.Markdown> | { $type: string }
   /** DID of the community where this record was created. Immutable origin identifier for cross-community attribution. */
   community: string
   /** Category record key (slug) within the community. Follows AT Protocol record key syntax. */
   category: string
+  /** Reference to a site.standard.publication record (at:// URI) or publication URL (https://). Enables cross-app content discovery. */
+  site?: string
   /** Topic tags. Lowercase alphanumeric + hyphens. */
   tags?: string[]
   /** Annotations of text (mentions, URLs, hashtags, etc). */
@@ -35,8 +35,8 @@ export interface Main {
   /** BCP 47 language tags indicating the primary language(s) of the content. */
   langs?: string[]
   labels?: $Typed<ComAtprotoLabelDefs.SelfLabels> | { $type: string }
-  /** Client-declared timestamp when this post was originally created. */
-  createdAt: string
+  /** Client-declared timestamp when this post was originally published. */
+  publishedAt: string
   [k: string]: unknown
 }
 

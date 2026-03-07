@@ -520,6 +520,26 @@ export const schemaDict = {
       },
     },
   },
+  ForumBarazoRichtext: {
+    lexicon: 1,
+    id: 'forum.barazo.richtext',
+    description: 'Content format definitions for forum post and reply bodies.',
+    defs: {
+      markdown: {
+        type: 'object',
+        description: 'Markdown-formatted text content.',
+        required: ['value'],
+        properties: {
+          value: {
+            type: 'string',
+            minLength: 1,
+            maxLength: 100000,
+            description: 'Markdown-formatted text.',
+          },
+        },
+      },
+    },
+  },
   ForumBarazoTopicPost: {
     lexicon: 1,
     id: 'forum.barazo.topic.post',
@@ -532,7 +552,13 @@ export const schemaDict = {
         key: 'tid',
         record: {
           type: 'object',
-          required: ['title', 'content', 'community', 'category', 'createdAt'],
+          required: [
+            'title',
+            'content',
+            'community',
+            'category',
+            'publishedAt',
+          ],
           properties: {
             title: {
               type: 'string',
@@ -542,15 +568,10 @@ export const schemaDict = {
               description: 'Topic title.',
             },
             content: {
-              type: 'string',
-              minLength: 1,
-              maxLength: 100000,
-              description: 'Topic body in markdown.',
-            },
-            contentFormat: {
-              type: 'string',
-              knownValues: ['markdown'],
-              description: "Content format. Defaults to 'markdown' if omitted.",
+              type: 'union',
+              description:
+                'Post body content. Open union for extensible content formats.',
+              refs: ['lex:forum.barazo.richtext#markdown'],
             },
             community: {
               type: 'string',
@@ -565,6 +586,12 @@ export const schemaDict = {
               maxGraphemes: 64,
               description:
                 'Category record key (slug) within the community. Follows AT Protocol record key syntax.',
+            },
+            site: {
+              type: 'string',
+              maxLength: 5000,
+              description:
+                'Reference to a site.standard.publication record (at:// URI) or publication URL (https://). Enables cross-app content discovery.',
             },
             tags: {
               type: 'array',
@@ -602,11 +629,11 @@ export const schemaDict = {
                 'Self-label values for content maturity (e.g., sexual, nudity, graphic-media).',
               refs: ['lex:com.atproto.label.defs#selfLabels'],
             },
-            createdAt: {
+            publishedAt: {
               type: 'string',
               format: 'datetime',
               description:
-                'Client-declared timestamp when this post was originally created.',
+                'Client-declared timestamp when this post was originally published.',
             },
           },
         },
@@ -629,15 +656,10 @@ export const schemaDict = {
           required: ['content', 'root', 'parent', 'community', 'createdAt'],
           properties: {
             content: {
-              type: 'string',
-              minLength: 1,
-              maxLength: 50000,
-              description: 'Reply body in markdown.',
-            },
-            contentFormat: {
-              type: 'string',
-              knownValues: ['markdown'],
-              description: "Content format. Defaults to 'markdown' if omitted.",
+              type: 'union',
+              description:
+                'Reply body content. Open union for extensible content formats.',
+              refs: ['lex:forum.barazo.richtext#markdown'],
             },
             root: {
               type: 'ref',
@@ -758,6 +780,7 @@ export const ids = {
   ForumBarazoDefs: 'forum.barazo.defs',
   ForumBarazoInteractionReaction: 'forum.barazo.interaction.reaction',
   ForumBarazoInteractionVote: 'forum.barazo.interaction.vote',
+  ForumBarazoRichtext: 'forum.barazo.richtext',
   ForumBarazoTopicPost: 'forum.barazo.topic.post',
   ForumBarazoTopicReply: 'forum.barazo.topic.reply',
   ForumBarazoAuthForumAccess: 'forum.barazo.authForumAccess',

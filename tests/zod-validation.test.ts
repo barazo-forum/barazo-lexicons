@@ -7,6 +7,7 @@ import {
   actorPreferencesSchema,
   communityRefSchema,
   actorSignatureSchema,
+  markdownContentSchema,
 } from '../src/validation/index.js'
 
 const VALID_DID = 'did:plc:abc123def456'
@@ -15,14 +16,55 @@ const VALID_STRONG_REF = {
   uri: 'at://did:plc:abc123/forum.barazo.topic.post/3jzfcijpj2z2a',
   cid: 'bafyreibouvacvqhc2vkwwtdkfynpcaoatmkde7uhrw47ne4gu63cnzc7yq',
 }
+const VALID_CONTENT = {
+  $type: 'forum.barazo.richtext#markdown' as const,
+  value: 'This is a test topic body.',
+}
+
+describe('markdownContentSchema', () => {
+  it('accepts valid markdown content', () => {
+    expect(markdownContentSchema.safeParse(VALID_CONTENT).success).toBe(true)
+  })
+
+  it('rejects missing $type', () => {
+    expect(markdownContentSchema.safeParse({ value: 'hello' }).success).toBe(false)
+  })
+
+  it('rejects wrong $type', () => {
+    expect(
+      markdownContentSchema.safeParse({ $type: 'forum.barazo.richtext#html', value: 'hello' })
+        .success
+    ).toBe(false)
+  })
+
+  it('rejects empty value', () => {
+    expect(
+      markdownContentSchema.safeParse({ $type: 'forum.barazo.richtext#markdown', value: '' })
+        .success
+    ).toBe(false)
+  })
+
+  it('rejects value exceeding maxLength (100000)', () => {
+    expect(
+      markdownContentSchema.safeParse({
+        $type: 'forum.barazo.richtext#markdown',
+        value: 'x'.repeat(100_001),
+      }).success
+    ).toBe(false)
+  })
+
+  it('rejects bare string content', () => {
+    expect(markdownContentSchema.safeParse('This is a string').success).toBe(false)
+  })
+})
 
 describe('topicPostSchema', () => {
   const validPost = {
     title: 'Test Topic',
-    content: 'This is a test topic body.',
+    content: VALID_CONTENT,
     community: VALID_DID,
     category: 'general',
-    createdAt: VALID_DATETIME,
+    publishedAt: VALID_DATETIME,
   }
 
   it('accepts a valid minimal post', () => {
@@ -32,7 +74,7 @@ describe('topicPostSchema', () => {
   it('accepts a post with all optional fields', () => {
     const full = {
       ...validPost,
-      contentFormat: 'markdown' as const,
+      site: 'at://did:plc:abc123/site.standard.publication/3lwafzkjqm25s',
       tags: ['test', 'poc'],
       facets: [
         {
@@ -46,6 +88,11 @@ describe('topicPostSchema', () => {
     expect(topicPostSchema.safeParse(full).success).toBe(true)
   })
 
+  it('accepts a post with https:// site URL', () => {
+    const withSite = { ...validPost, site: 'https://example.com' }
+    expect(topicPostSchema.safeParse(withSite).success).toBe(true)
+  })
+
   it('rejects empty title', () => {
     expect(topicPostSchema.safeParse({ ...validPost, title: '' }).success).toBe(false)
   })
@@ -55,13 +102,17 @@ describe('topicPostSchema', () => {
     expect(topicPostSchema.safeParse({ ...validPost, title: longTitle }).success).toBe(false)
   })
 
-  it('rejects empty content', () => {
-    expect(topicPostSchema.safeParse({ ...validPost, content: '' }).success).toBe(false)
+  it('rejects bare string content', () => {
+    expect(topicPostSchema.safeParse({ ...validPost, content: 'bare string' }).success).toBe(false)
   })
 
-  it('rejects content exceeding maxLength (100000)', () => {
-    const longContent = 'x'.repeat(100_001)
-    expect(topicPostSchema.safeParse({ ...validPost, content: longContent }).success).toBe(false)
+  it('rejects content with empty value', () => {
+    expect(
+      topicPostSchema.safeParse({
+        ...validPost,
+        content: { $type: 'forum.barazo.richtext#markdown', value: '' },
+      }).success
+    ).toBe(false)
   })
 
   it('rejects invalid DID format for community', () => {
@@ -81,7 +132,9 @@ describe('topicPostSchema', () => {
   })
 
   it('rejects invalid datetime format', () => {
-    expect(topicPostSchema.safeParse({ ...validPost, createdAt: 'not-a-date' }).success).toBe(false)
+    expect(topicPostSchema.safeParse({ ...validPost, publishedAt: 'not-a-date' }).success).toBe(
+      false
+    )
   })
 
   it('rejects empty category', () => {
@@ -103,10 +156,6 @@ describe('topicPostSchema', () => {
   it('rejects missing required fields', () => {
     expect(topicPostSchema.safeParse({}).success).toBe(false)
     expect(topicPostSchema.safeParse({ title: 'Test' }).success).toBe(false)
-  })
-
-  it('rejects invalid contentFormat', () => {
-    expect(topicPostSchema.safeParse({ ...validPost, contentFormat: 'html' }).success).toBe(false)
   })
 
   it('accepts post with facets', () => {
@@ -153,7 +202,7 @@ describe('topicPostSchema', () => {
 
 describe('topicReplySchema', () => {
   const validReply = {
-    content: 'This is a reply.',
+    content: VALID_CONTENT,
     root: VALID_STRONG_REF,
     parent: VALID_STRONG_REF,
     community: VALID_DID,
@@ -183,13 +232,22 @@ describe('topicReplySchema', () => {
     ).toBe(false)
   })
 
-  it('rejects content exceeding 50000 bytes', () => {
+  it('rejects content with value exceeding 100000', () => {
     expect(
       topicReplySchema.safeParse({
         ...validReply,
-        content: 'x'.repeat(50_001),
+        content: {
+          $type: 'forum.barazo.richtext#markdown' as const,
+          value: 'x'.repeat(100_001),
+        },
       }).success
     ).toBe(false)
+  })
+
+  it('rejects bare string content', () => {
+    expect(topicReplySchema.safeParse({ ...validReply, content: 'bare string' }).success).toBe(
+      false
+    )
   })
 })
 

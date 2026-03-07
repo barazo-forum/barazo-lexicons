@@ -11,6 +11,7 @@ export * as ForumBarazoActorSignature from "./types/forum/barazo/actor/signature
 export * as ForumBarazoDefs from "./types/forum/barazo/defs.js";
 export * as ForumBarazoInteractionReaction from "./types/forum/barazo/interaction/reaction.js";
 export * as ForumBarazoInteractionVote from "./types/forum/barazo/interaction/vote.js";
+export * as ForumBarazoRichtext from "./types/forum/barazo/richtext.js";
 export * as ForumBarazoTopicPost from "./types/forum/barazo/topic/post.js";
 export * as ForumBarazoTopicReply from "./types/forum/barazo/topic/reply.js";
 export { schemas, validate } from "./lexicons.js";
