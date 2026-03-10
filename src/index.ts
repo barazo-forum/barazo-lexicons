@@ -1,5 +1,5 @@
 /**
- * @singi-labs/lexicons
+ * @singi-labs/barazo-lexicons
  *
  * AT Protocol lexicon schemas and generated TypeScript types
  * for the Barazo forum platform.
